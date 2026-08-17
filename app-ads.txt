@@ -1,2 +1,1 @@
-# Replace this file with the exact personalized app-ads.txt line copied from AdMob before verification.
-# Do not invent or publish a fake publisher ID.
+google.com, pub-3397355772120944, DIRECT
