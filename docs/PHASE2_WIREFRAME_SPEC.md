@@ -88,3 +88,12 @@ DETAIL
 
 ## Phase 2 exit
 Deliver wireframe + evidence ledger + offline checks in a checkpoint commit. User visual approval gates beginning final style/production content, but does not block Phase 3 technical schema scaffolding. Preserve `main` and original legal/ad files.
+
+## Accepted design corrections — 2026-10-24
+
+- Default public Works: **Anvil Bastion (Game)** and **VirtualQHDMirror (Software)**. The initial review-only status of VQM and the prior default display of personal bootcamp examples are superseded.
+- **Detail hierarchy:** Back → title/category + prominent primary outbound CTA → wide media placeholder → overview + facts → secondary resource links. Do not bury the main outbound action beside policy links.
+- **Anvil Bastion primary CTA:** `Google Play` → https://play.google.com/store/apps/details?id=com.burningarktis.anvilbastion (verified from Google's actual listing on 2026-10-24). Secondary: privacy policy and support.
+- **VirtualQHDMirror primary CTA:** `GitHub` → https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md. Do not use the longer label `Public README`.
+- **Accepted:** Home, Works grid and filters, mobile baseline, charcoal/cyan design. Final detail CTA placement awaits one more visual review.
+- **Unapproved:** Other personal/team projects and artwork; no automatic transfer of demonstration data to the published site.

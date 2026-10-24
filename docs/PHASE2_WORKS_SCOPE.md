@@ -32,3 +32,11 @@
 
 ## Outcome
 Phase 2 can finalize information architecture and layout without waiting for all approvals. The only **presumptively eligible** named work is Anvil Bastion (limited to facts already stated on official site). The prototype shows two conspicuously review-only GitHub candidates to demonstrate card/filter layouts; this does **not** approve them for release.
+
+## Review decision superseding the initial candidate register — 2026-10-24
+
+- **Anvil Bastion:** Public Google Play page was opened and verified: [Anvil Bastion: Idle Defense](https://play.google.com/store/apps/details?id=com.burningarktis.anvilbastion), developer **Team Burning Arktis**. Use **Google Play** as the prominent primary detail CTA. Privacy and support remain secondary. This **supersedes** the former "storefront pending" statements above. Do not copy changing review/download metrics.
+- **VirtualQHDMirror:** User explicitly selected it for the public Works listing under **Software**. Primary CTA text: **GitHub**, destination: [public README](https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md). Listing approval is **not** evidence for describing it as an incorporated studio's original commercial release. This **supersedes** its former "candidate / approval needed" status.
+- **Other public repositories:** Not selected for public portfolio listing; remain excluded. The SpartaPixelVerse card may be shown with the explicitly labelled design-only toggle in local wireframes, initially hidden. It must never be shipped as published content automatically.
+- **Accepted:** Home section order, Works grid and categories, mobile page hierarchy, charcoal/cyan direction.
+- **Still needed before production:** Verify details CTA layout on phone/desktop; obtain approved logo/cover images and decide final site copy. No CI, PR or main deployment authorized.

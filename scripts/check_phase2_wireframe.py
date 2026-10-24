@@ -59,6 +59,10 @@ def main():
         'data-filter', 'aria-pressed', 'hashchange',
         "#home", "#works", "#work/anvil-bastion",
         "https://arktis-p.github.io/privacy.html",
+        "https://play.google.com/store/apps/details?id=com.burningarktis.anvilbastion",
+        "https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md",
+        'label:"Google Play"', 'label:"GitHub"',
+        "var showCandidates = false;", "detail-cta",
         "mailto:burningarktis@proton.me",
     ):
         if phrase not in data:

@@ -101,6 +101,8 @@ button { font: inherit; cursor: pointer; }
 .detail-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; padding: 46px 0 30px; }
 .detail-head h1 { font-size: clamp(2.8rem,5.8vw,5.7rem); letter-spacing: -.06em; line-height: 1.02; margin: 12px 0; }
 .detail-head .muted { max-width: 590px; }
+.detail-cta { flex: none; display: flex; gap: 10px; flex-wrap: wrap; align-self: center; }
+.detail-cta .btn { min-width: 145px; }
 .detail .stage { min-height: 460px; }
 .detail .stage:after { width: 31%; left: 35%; top: 16%; }
 .detail-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(36px,7vw,110px); padding: 63px 0 90px; }
@@ -138,6 +140,8 @@ button { font: inherit; cursor: pointer; }
  .filter-row { gap: 6px; }
  .chip { padding-inline: 11px; }
  .detail-head { display: block; }
+ .detail-cta { margin-top: 25px; }
+ .detail-cta .btn { width: 100%; }
  .detail .stage { min-height: 300px; }
  .facts div { grid-template-columns: 90px 1fr; }
  .work-card .stage { min-height: 240px; }
@@ -166,16 +170,16 @@ button { font: inherit; cursor: pointer; }
     {
       slug:"anvil-bastion",title:"Anvil Bastion",category:"game",categoryLabel:"Game",number:"01",
       desc:"A mobile defense and progression game.",review:false,
-      status:"Existing public-site work",author:"BurningArktis (as stated on current homepage)",
-      detail:"Anvil Bastion is described on the existing public website as a mobile defense and progression game developed and published by BurningArktis. A verified public store URL and approved cover artwork have not been supplied.",
-      links:[{label:"Privacy Policy ↗",href:"https://arktis-p.github.io/privacy.html"},{label:"Support ↗",href:"mailto:burningarktis@proton.me"}]
+      status:"Google Play listing verified",author:"Team Burning Arktis (Google Play developer)",
+      detail:"Google Play lists Anvil Bastion: Idle Defense as a Team Burning Arktis game. Forge equipment, improve your builds, and defend the Bastion. Approved artwork has not yet been imported into this wireframe.",
+      links:[{label:"Google Play",href:"https://play.google.com/store/apps/details?id=com.burningarktis.anvilbastion",primary:true},{label:"Privacy Policy",href:"https://arktis-p.github.io/privacy.html"},{label:"Support",href:"mailto:burningarktis@proton.me"}]
     },
     {
       slug:"virtualqhdmirror",title:"VirtualQHDMirror",category:"software",categoryLabel:"Software",number:"02",
-      desc:"An interactive window onto a higher-resolution virtual desktop.",review:true,
-      status:"Review only · portfolio inclusion unapproved",author:"Public Arktis-P repository; official studio affiliation unverified",
-      detail:"The public README describes a Windows 11 display-mirroring application. This entry is ONLY to test the software layout. Its inclusion in the Burning Arktis portfolio and the proper attribution are not approved.",
-      links:[{label:"Public README ↗",href:"https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md"}]
+      desc:"An interactive window onto a higher-resolution virtual desktop.",review:false,
+      status:"Public GitHub software · portfolio inclusion approved",author:"Public Arktis-P repository (studio release attribution not claimed)",
+      detail:"A Windows 11 tool for interacting with a higher-resolution virtual desktop from a lower-resolution display. The website owner has approved listing the public software in Works; the GitHub README contains details and release information.",
+      links:[{label:"GitHub",href:"https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md",primary:true}]
     },
     {
       slug:"spartapixelverse",title:"SpartaPixelVerse",category:"experiment",categoryLabel:"Experiment",number:"03",
@@ -186,7 +190,7 @@ button { font: inherit; cursor: pointer; }
     }
   ];
   var category = "all";
-  var showCandidates = true;
+  var showCandidates = false;
   var app = document.getElementById("app");
   function stage(label,num,kind) {
     return '<div class="stage" aria-label="Abstract art placeholder, not an actual project screenshot" role="img"><span class="stage-label">' + label + '</span><div class="stage-foot"><span>VISUAL PLACEHOLDER</span><span>' + (num || "BA / 02") + '</span></div></div>';
@@ -203,7 +207,7 @@ button { font: inherit; cursor: pointer; }
     return '<article class="work-card' + (w.review?' candidate':'') + '">' +
       stage(w.review?"REVIEW-ONLY EXAMPLE":"COVER ART PENDING",w.number) +
       '<div class="card-content"><span class="tag' + (w.review?' review':'') + '">' + (w.review?"REVIEW ONLY / ":"") + w.categoryLabel + '</span><h2>' + w.title + '</h2>' +
-      '<span class="meta">' + w.status + '</span><p>' + w.desc + '</p><a class="card-link" href="#work/' + w.slug + '" aria-label="Open ' + w.title + ' review detail">View detail →</a></div></article>';
+      '<span class="meta">' + w.status + '</span><p>' + w.desc + '</p><a class="card-link" href="#work/' + w.slug + '" aria-label="Open ' + w.title + ' project detail">View detail →</a></div></article>';
   }
   function worksPage() {
     var data = works.filter(function(w){return (showCandidates || !w.review) && (category === "all" || w.category === category);});
@@ -213,23 +217,25 @@ button { font: inherit; cursor: pointer; }
     var cards = data.length ? '<div class="work-grid">' + data.map(card).join("") + '</div>' :
       '<div class="empty">No work in this category in the selected review mode. Pending candidates are never assumed published.</div>';
     return '<div class="shell page"><div class="page-top"><span class="overline">Selected portfolio</span><h1 class="page-title">Our Works<span style="color:var(--accent)">.</span></h1>' +
-      '<p class="intro">Games, software and experiments. Existing-site content is separated from projects still pending approval for a team portfolio.</p></div>' +
+      '<p class="intro">Games, software and experiments. Initial works include Anvil Bastion and VirtualQHDMirror; review-only examples stay separate.</p></div>' +
       '<div class="controls"><div class="filter-row" role="group" aria-label="Work categories">' + filters + '</div>' +
       '<button type="button" class="review-toggle" id="toggle-candidates" aria-pressed="' + showCandidates + '">' + (showCandidates?'Hide':'Show') + ' review-only examples</button></div>' +
-      (showCandidates?'<div class="notice"><strong>Design-only candidates:</strong> dashed amber cards are public GitHub projects included to test the layout. They are NOT approved team works or production entries.</div>':'<div class="notice">Release-safe preview: only the project already documented on the existing official website is shown.</div>') +
-      cards + '<div class="note-footer">This is a Phase 2 wireframe. Store links, company claims and artworks are intentionally omitted pending verification.</div></div>';
+      (showCandidates?'<div class="notice"><strong>Design-only candidates:</strong> dashed amber cards are public GitHub projects included to test the layout. They are NOT approved team works or production entries.</div>':'<div class="notice">Initial public selection: Anvil Bastion and VirtualQHDMirror. Other projects remain excluded.</div>') +
+      cards + '<div class="note-footer">This is a Phase 2 wireframe. The Google Play URL is verified. Unapproved artwork and unverified affiliation claims are excluded.</div></div>';
   }
   function details(slug) {
     var w=works.find(function(x){return x.slug===slug;});
     if(!w)return '<div class="shell page" style="padding-block:90px"><h1>Work not found</h1><a class="link" href="#works">Back to Works →</a></div>';
-    var items = w.links.map(function(x){return '<a class="btn" href="' + x.href + '"' + (x.href.indexOf("https://")===0?' target="_blank" rel="noopener noreferrer"':'') + '>' + x.label + '</a>';}).join("");
+    function action(x){return '<a class="btn' + (x.primary?' primary':'') + '" href="' + x.href + '"' + (x.href.indexOf("https://")===0?' target="_blank" rel="noopener noreferrer"':'') + '>' + x.label + (x.primary?' ↗':'') + '</a>';}
+    var primary = w.links.filter(function(x){return x.primary;}).map(action).join("");
+    var items = w.links.filter(function(x){return !x.primary;}).map(action).join("");
     return '<div class="shell page detail"><a class="detail-back" href="#works">← Back to Works</a>' +
       (w.review?'<div class="notice" style="margin-top:24px">REVIEW ONLY — this project has not been approved for publication as a Burning Arktis studio work.</div>':'') +
-      '<div class="detail-head"><div><span class="overline">' + (w.review?'Review-only example':'Existing public-site work') + ' / ' + w.categoryLabel + '</span><h1>' + w.title + '</h1><p class="muted">' + w.desc + '</p></div></div>' +
+      '<div class="detail-head"><div><span class="overline">' + (w.review?'Review-only example':'Portfolio work') + ' / ' + w.categoryLabel + '</span><h1>' + w.title + '</h1><p class="muted">' + w.desc + '</p></div>' + (primary?'<div class="detail-cta" aria-label="Official project links">' + primary + '</div>':'') + '</div>' +
       stage("IMAGE / SCREENSHOT SLOT",w.number) +
       '<section class="detail-grid"><div><span class="overline">Overview</span><h2>About this work</h2><p>' + w.detail + '</p></div>' +
       '<aside><span class="overline">Project facts</span><dl class="facts"><div><dt>Category</dt><dd>' + w.categoryLabel + '</dd></div><div><dt>Attribution</dt><dd>' + w.author + '</dd></div><div><dt>Visibility</dt><dd>' + w.status + '</dd></div></dl>' +
-      '<div class="external-links">' + items + '</div></aside></section></div>';
+      (items?'<div class="meta" style="margin-top:26px">Related links</div><div class="external-links">' + items + '</div>':'') + '</aside></section></div>';
   }
   function render() {
     var hash=(location.hash||"#home").slice(1);
