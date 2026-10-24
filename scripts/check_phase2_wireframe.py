@@ -63,7 +63,7 @@ def main():
         "https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md",
         'label:"Google Play"', 'label:"GitHub"',
         "var showCandidates = false;", "detail-cta",
-        "mailto:burningarktis@proton.me",
+        "mailto:burningarktis@gmail.com",
     ):
         if phrase not in data:
             errors.append("missing required phrase: "+phrase)

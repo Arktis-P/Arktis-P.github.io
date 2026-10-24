@@ -82,3 +82,6 @@ The runtime could not independently fetch the live Pages host. The user can chec
 - [ ] Before **release**, verify all three live routes and GitHub Pages publishing source with repository Settings or a browser.
 
 **Exit status:** Phase 1 repository audit and local test setup complete; live-site validation remains a recorded manual check. Begin Phase 2 wireframes and Works scope without editing `main`.
+
+## Subsequent decision (2026-10-25; historical audit preserved)
+The user approved **burningarktis@gmail.com** as the sole contact for the new site. Production `main` still contains the legacy Proton address until a reviewed, contact-only legal-policy amendment and redesign release. Original privacy and ads Git blobs remain the protected baseline; do not silently edit the live policy.

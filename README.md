@@ -7,7 +7,9 @@ Official public site for Burning Arktis / Anvil Bastion. A broader team portfoli
 - Public website: https://arktis-p.github.io/
 - Anvil Bastion privacy policy: https://arktis-p.github.io/privacy.html
 - AdMob app-ads authorization: https://arktis-p.github.io/app-ads.txt
-- Public support email: burningarktis@proton.me
+- New-site public support email (verified on Google Play): burningarktis@gmail.com
+
+**Migration note:** the unchanged `main/index.html` and `main/privacy.html` currently show the legacy Proton Mail address. They are production-protected until the redesigned site and the contact-only privacy-policy amendment are approved for release. Do not treat the legacy contact as the new-site address.
 
 ## Existing production source
 

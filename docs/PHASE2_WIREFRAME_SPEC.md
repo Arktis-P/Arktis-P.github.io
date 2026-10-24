@@ -97,3 +97,11 @@ Deliver wireframe + evidence ledger + offline checks in a checkpoint commit. Use
 - **VirtualQHDMirror primary CTA:** `GitHub` → https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md. Do not use the longer label `Public README`.
 - **Accepted:** Home, Works grid and filters, mobile baseline, charcoal/cyan design. Final detail CTA placement awaits one more visual review.
 - **Unapproved:** Other personal/team projects and artwork; no automatic transfer of demonstration data to the published site.
+
+## Phase 2 final review sign-off (2026-10-25)
+
+- The previously pending detail CTA re-review is **completed**, including the game Google Play button on mobile and the software GitHub button.
+- Home/Works/detail design, category filters, mobile, and charcoal/cyan direction are approved. Initial public works: Anvil Bastion and VirtualQHDMirror.
+- Final media is deferred; fixed paths and sizes: [ASSET_GUIDE.md](ASSET_GUIDE.md).
+- Use **burningarktis@gmail.com** in all newly authored site content, not the legacy Proton Mail address.
+- This closes Phase 2 design approval, **not** Phase 4 implementation, browser acceptance testing of a new deployed site, or release approval.

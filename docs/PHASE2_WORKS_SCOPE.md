@@ -40,3 +40,12 @@ Phase 2 can finalize information architecture and layout without waiting for all
 - **Other public repositories:** Not selected for public portfolio listing; remain excluded. The SpartaPixelVerse card may be shown with the explicitly labelled design-only toggle in local wireframes, initially hidden. It must never be shipped as published content automatically.
 - **Accepted:** Home section order, Works grid and categories, mobile page hierarchy, charcoal/cyan direction.
 - **Still needed before production:** Verify details CTA layout on phone/desktop; obtain approved logo/cover images and decide final site copy. No CI, PR or main deployment authorized.
+
+## Final Phase 2 sign-off — 2026-10-25
+
+- The user confirmed that the Anvil Bastion **Google Play** button opens and displays correctly on mobile.
+- The user confirmed that the VirtualQHDMirror **GitHub** button opens correctly.
+- The user accepted the page hierarchy, filters, mobile layouts and charcoal/cyan palette. No further wireframe UI corrections requested.
+- The user will supply assets incrementally; the exact filenames/dimensions and safe fallbacks are defined in [ASSET_GUIDE.md](ASSET_GUIDE.md).
+- New-site support contact is **burningarktis@gmail.com**, independently confirmed on the [Google Play listing](https://play.google.com/store/apps/details?id=com.burningarktis.anvilbastion). **Do not publish Proton Mail** as a new-site contact. The current legal policy stays unmodified on the production branch until a contact-only update is reviewed.
+- **Phase 2 CLOSED**. Phase 3: content schema and deterministic asset resolver; still no PR, Actions or production deployment.
