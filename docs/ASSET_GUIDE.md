@@ -29,7 +29,7 @@ The Phase 3 code contract is implemented by `src/lib/media.ts`:
 - There is **no filename entry to edit in a Markdown/YAML file**. After adding an asset, rebuild the site locally and publish the generated static output through the separately approved publishing process.
 - The image source is local; no runtime fetching, CMS, CDN subscription or GitHub Actions is required.
 
-**Important:** As of Phase 3 the **asset discovery helper and content schema** exist; the Astro page components that consume these helpers are Phase 4 work. These paths do **not** automatically change the standalone `docs/wireframes/index.html` preview.
+**Important:** **Phase 4 Astro pages are now wired** to the asset-discovery helper. Run `npm run build` after adding files to regenerate static output; source-branch changes alone do not update the public site. These paths do **not** automatically change the standalone `docs/wireframes/index.html` preview.
 
 ## 3. Export recommendations
 
@@ -52,7 +52,7 @@ git add public/images/works/anvil-bastion/cover.webp
 git commit -m "🖼️ assets(site): add Anvil Bastion cover artwork"
 ```
 
-Once the actual Astro pages are in place (Phase 4), run `npm run build` to regenerate the static output. **Uploading a source image into the branch alone does not update the live GitHub Pages site**, which still serves `main` until deployment is authorized.
+Run `npm run build` after changing image assets to regenerate the static output. **Uploading a source image into the branch alone does not update the live GitHub Pages site**, which still serves `main` until deployment is authorized.
 
 ## 5. New work later
 

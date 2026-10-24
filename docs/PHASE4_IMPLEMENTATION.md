@@ -65,6 +65,12 @@ The default preview server also uses localhost port 4321 (or the next free port)
 - [ ] Verify Gmail appears in home/footer and new policy; no Proton address in built output.
 - [ ] Verify privacy content and app-ads bytes remain correct on the eventual live URL.
 
+## Source checks completed in connected repository
+
+- Verified the default Works output is limited to the two approved content files.
+- Simulated the Works client-side category filter (All, Games, empty Experiments) in JavaScript; all three behavior cases passed.
+- Checked the links, Gmail binding, media placeholders, static build configuration, mobile/reduced-motion CSS, root-file preservation and exact contact-only policy substitution. This is source-level evidence, **not** a successful Astro build or rendered-browser test.
+
 ## Validation honesty
 
 At authoring time, the GitHub connector can write and read the code, and static contract/source audits can be performed without hosted infrastructure. **The current assistant execution environment cannot download npm dependencies**, so an actual Astro build and Playwright screenshot review were **not completed**. This is a concrete gate, not a claim that build succeeded. Completion of the implementation source should not be confused with release-ready verified output.

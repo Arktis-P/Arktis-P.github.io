@@ -40,6 +40,24 @@ The candidate entries inside the design preview are **not approved for publicati
 
 **Phase status:** content/data schema only; Astro pages, npm setup and actual build/visual QA are Phase 4. No production site is deployed from the feature branch.
 
+## Phase 4: runnable Astro website (source branch only)
+
+The source pages for Home, Works, and both approved project detail routes are now implemented in Astro and use the content files above. **Live GitHub Pages is unchanged.** Build verification is still required before release.
+
+```powershell
+git fetch origin
+git switch gpt/site-redesign-implementation
+node -v  # must be >=22.23.4
+npm install
+npm run build
+py scripts/check_site_baseline.py
+py scripts/check_phase3_content.py
+py scripts/check_phase4_source.py --dist
+npm run preview
+```
+
+See [Phase 4 Implementation and QA](docs/PHASE4_IMPLEMENTATION.md) for the test matrix and no-Actions publishing boundary. Commit the generated `package-lock.json` after the first successful local install, using an emoji-prefixed checkpoint commit. No PR or hosted CI is needed.
+
 ## Redesign references
 
 - [Plan](docs/SITE_REDESIGN_PLAN.md)

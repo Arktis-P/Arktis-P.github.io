@@ -51,3 +51,6 @@ py scripts/check_phase3_content.py
 ```
 
 These tests require only Python's standard library. Actual Astro compilation and real web-browser visual checks belong to Phase 4.
+
+## Phase 4 integration update (2026-10-25)
+The `src/pages/` templates and `src/components/` views are now connected to these collection definitions. Home headline, featured Works, public contact, Works list, project details and optional media are consumed from the content files and local media resolver. New-site `public/privacy.html` keeps all original policy wording while substituting the authorized Gmail contact only; the protected root `privacy.html` remains unchanged. Source/logic tests passed; actual Astro build is **not** yet verified in the assistant environment (offline npm and older Node).
