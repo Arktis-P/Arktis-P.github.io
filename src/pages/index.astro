@@ -14,13 +14,16 @@ const featured = home.data.featured_works
   .map((slug) => published.find((entry) => entry.data.slug === slug && entry.data.featured))
   .filter((entry) => entry !== undefined);
 const media = getBrandMedia();
+const headlineWords = home.data.headline.trim().split(/\s+/);
+const headlineHighlight = headlineWords.pop() ?? "";
+const headlineLead = headlineWords.join(" ");
 ---
 <SiteLayout title="Home" description={home.data.introduction}>
   <div class="shell">
     <section class="hero" aria-labelledby="hero-title">
       <div>
         <span class="eyebrow">{home.data.eyebrow}</span>
-        <h1 id="hero-title">Making things<br />worth <em>exploring.</em></h1>
+        <h1 id="hero-title">{headlineLead} <em>{headlineHighlight}</em></h1>
         <p class="lead">{home.data.introduction}</p>
         <div class="actions"><a class="btn btn-primary" href="/works/">{home.data.primary_cta_label} →</a></div>
       </div>

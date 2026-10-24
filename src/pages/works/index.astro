@@ -29,8 +29,8 @@ const published = (await getCollection("works", ({ data }) => !data.draft))
   </div>
   <script>
     // Progressive enhancement: without JavaScript all approved works remain visible.
-    const filters = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-filter]"));
-    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-category]"));
+    const filters = Array.from(document.querySelectorAll("[data-filter]"));
+    const cards = Array.from(document.querySelectorAll("[data-category]"));
     const count = document.getElementById("results-count");
     const empty = document.getElementById("empty-results");
     for (const button of filters) {

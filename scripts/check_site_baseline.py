@@ -29,19 +29,33 @@ def main() -> int:
         else:
             failures.append(f"[FAIL] {name} missing")
     for name, expected in PROTECTED_BLOBS.items():
-        candidates = [path for path in (ROOT / name, ROOT / "public" / name)
-                      if path.is_file()]
-        if not candidates:
-            failures.append(f"[FAIL] {name} missing from root and public/")
+        origin = ROOT / name
+        publish = ROOT / "public" / name
+        if not origin.is_file():
+            failures.append(f"[FAIL] missing protected root {name}")
             continue
-        for path in candidates:
-            actual = blob_sha(path.read_bytes())
-            display = path.relative_to(ROOT).as_posix()
-            if actual == expected:
-                checks.append(f"[PASS] {display}: protected Git blob unchanged")
-            else:
-                failures.append(
-                    f"[FAIL] {display}: baseline {expected}, actual {actual}")
+        original = origin.read_bytes()
+        if blob_sha(original) != expected:
+            failures.append(f"[FAIL] original {name} changed")
+        else:
+            checks.append(f"[PASS] original {name} matches protected Git blob")
+        if not publish.is_file():
+            failures.append(f"[FAIL] missing public/{name} (Astro output source)")
+            continue
+        published = publish.read_bytes()
+        if name == "privacy.html":
+            # The site owner authorized one specific change: legacy mail -> Gmail.
+            # All other privacy-policy bytes MUST remain identical.
+            approved = original.replace(b"burningarktis@proton.me", b"burningarktis@gmail.com")
+            ok = (b"burningarktis@proton.me" in original
+                  and b"burningarktis@gmail.com" in published
+                  and published == approved)
+        else:
+            ok = published == original
+        if ok:
+            checks.append(f"[PASS] public/{name} equals approved protected variant")
+        else:
+            failures.append(f"[FAIL] public/{name} differs beyond authorized changes")
     home = ROOT / "index.html"
     if home.is_file():
         html = home.read_text(encoding="utf-8")
