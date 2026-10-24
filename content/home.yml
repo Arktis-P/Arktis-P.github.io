@@ -1,0 +1,10 @@
+# Site-wide homepage copy. Edit here, not inside page components.
+# Keep one entry with id: home for Astro's YAML file loader.
+- id: home
+  site_name: Burning Arktis
+  eyebrow: Games / Software / Creative Experiments
+  headline: Making things worth exploring.
+  introduction: A home for games and selected software projects.
+  primary_cta_label: Explore Works
+  featured_works:
+    - anvil-bastion

@@ -31,6 +31,15 @@ The exact live Pages settings/HTTP responses still need manual verification; see
 
 The candidate entries inside the design preview are **not approved for publication**. Work happens on `gpt/site-redesign-implementation`. No PR, hosted CI or deployment is involved.
 
+## Phase 3: editable content and future image uploads
+
+- [Image names, directories and pixel dimensions](docs/ASSET_GUIDE.md) — copy new files to `public/images/` using exact names; absent files fall back gracefully when production page templates are implemented.
+- [Content schema and editing guide](docs/PHASE3_CONTENT_SCHEMA.md) — `content/home.yml`, `content/about.md`, `content/contact.yml`, `content/works/*.md`.
+- Technical contracts: `src/content.config.ts` (Astro Content Collections) and `src/lib/media.ts` (local build-time asset lookup).
+- No installation required for contract check: `py scripts/check_phase3_content.py`.
+
+**Phase status:** content/data schema only; Astro pages, npm setup and actual build/visual QA are Phase 4. No production site is deployed from the feature branch.
+
 ## Redesign references
 
 - [Plan](docs/SITE_REDESIGN_PLAN.md)

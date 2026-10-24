@@ -1,0 +1,5 @@
+# Approved public-facing contact. Keep the policy's legal contact aligned before release.
+- id: contact
+  email: burningarktis@gmail.com
+  github_url: https://github.com/Arktis-P
+  privacy_url: /privacy.html

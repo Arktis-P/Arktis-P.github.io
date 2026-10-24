@@ -1,0 +1,9 @@
+# Local Node/Astro build and editor output; never commit generated files or dependencies.
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
