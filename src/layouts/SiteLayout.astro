@@ -1,0 +1,52 @@
+---
+import { getEntry } from "astro:content";
+import { getBrandMedia } from "../lib/media";
+import "../styles/global.css";
+
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+const contact = await getEntry("contact", "contact");
+if (!contact) throw new Error("Missing public contact record");
+const brand = getBrandMedia();
+const current = Astro.url.pathname.startsWith("/works") ? "works" : "home";
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://arktis-p.github.io").toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0e13" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <title>{title} | Burning Arktis</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title + " | Burning Arktis"} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="header"><div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Burning Arktis — Home">
+        {brand.wordmark ? <img src={brand.wordmark} alt="Burning Arktis" width="180" height="42" /> : (
+          <>{brand.mark ? <img src={brand.mark} alt="" width="34" height="38" /> : <span class="brand-symbol" aria-hidden="true"></span>}
+          <span class="brand-letters"><span>BURNING</span><span>ARKTIS</span></span></>
+        )}
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/" aria-current={current === "home" ? "page" : undefined}>Home</a>
+        <a href="/works/" aria-current={current === "works" ? "page" : undefined}>Works</a>
+      </nav>
+    </div></header>
+    <main id="content"><slot /></main>
+    <footer class="footer"><div class="shell footer-row">
+      <span>© {new Date().getFullYear()} Burning Arktis</span>
+      <div class="footer-links">
+        <a href={contact.data.privacy_url}>Privacy Policy</a>
+        <a href={"mailto:" + contact.data.email}>Contact</a>
+        <a href={contact.data.github_url} target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div></footer>
+  </body>
+</html>

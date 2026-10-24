@@ -1,0 +1,10 @@
+---
+interface Props { src: string | null; alt: string; hint?: string; className?: string; eager?: boolean; }
+const { src, alt, hint = "IMAGE PENDING", className = "", eager = false } = Astro.props;
+---
+<div class={"visual " + className}>
+  {src ? <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} decoding="async" /> : (
+    <><span class="visual-label">BURNING ARKTIS / ARTWORK SLOT</span>
+    <span class="visual-foot"><span>{hint}</span><span>BA / STUDIO</span></span></>
+  )}
+</div>
