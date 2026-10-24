@@ -60,11 +60,13 @@ Open `http://localhost:8000/`, `http://localhost:8000/privacy.html` and `http://
 
 ## 5. User-visible manual production checklist
 
+**2026-10-24 follow-up:** The site owner reported successfully opening all three live URLs (root, privacy policy, app-ads.txt). These are user-observed confirmations, **not independent network checks**. The optional mobile check remains unverified.
+
 The runtime could not independently fetch the live Pages host. The user can check these links with a normal browser and report any failures; this is **not a blocker for Phase 2 design work**.
 
-- [ ] Open `https://arktis-p.github.io/` and confirm the Anvil Bastion developer/support page loads.
-- [ ] Open `https://arktis-p.github.io/privacy.html` and confirm the privacy policy loads (last updated 2026-08-17).
-- [ ] Open `https://arktis-p.github.io/app-ads.txt` and confirm a nonempty Google authorization line is visible; do not post the publisher identifier to public issues.
+- [x] Open `https://arktis-p.github.io/` and confirm the Anvil Bastion developer/support page loads.
+- [x] Open `https://arktis-p.github.io/privacy.html` and confirm the privacy policy loads (last updated 2026-08-17).
+- [x] Open `https://arktis-p.github.io/app-ads.txt` and confirm a nonempty Google authorization line is visible; do not post the publisher identifier to public issues.
 - [ ] Optionally test the site on a phone and note any existing rendering problems for comparison.
 
 ## 6. Findings and release gates
