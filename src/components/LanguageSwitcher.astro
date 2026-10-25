@@ -1,0 +1,71 @@
+---
+import { translations, t } from "../lib/i18n";
+const safeJson = JSON.stringify(translations).replace(/</g, String.fromCharCode(92) + "u003c");
+---
+<div class="language-switch" role="group" aria-label={t("nav.language")} data-i18n-aria-label="nav.language">
+  <button type="button" data-locale="en" aria-pressed="true" lang="en">EN</button>
+  <button type="button" data-locale="ko" aria-pressed="false" lang="ko">한국어</button>
+</div>
+<script type="application/json" id="site-translations" set:html={safeJson}></script>
+<script is:inline>
+(function () {
+  "use strict";
+  const source = document.getElementById("site-translations");
+  if (!source) return;
+  let dict;
+  try { dict = JSON.parse(source.textContent || "{}"); } catch { return; }
+  const STORAGE = "burning-arktis-locale";
+  let locale = "en";
+  try { if (localStorage.getItem(STORAGE) === "ko") locale = "ko"; } catch {}
+  function tr(key) {
+    return dict[key]?.[locale] || dict[key]?.en || key;
+  }
+  function applyTranslations() {
+    document.documentElement.lang = locale;
+    document.querySelectorAll("[data-i18n-key]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-key");
+      if (key) el.textContent = tr(key);
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-alt");
+      if (!key) return;
+      const number = el.getAttribute("data-i18n-number");
+      el.setAttribute("alt", tr(key).replaceAll("{number}", number || ""));
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-aria-label");
+      if (key) el.setAttribute("aria-label", tr(key));
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-title");
+      if (key) el.textContent = tr(key) + " | Burning Arktis";
+    });
+    document.querySelectorAll("[data-i18n-description]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-description");
+      if (key) el.setAttribute("content", tr(key));
+    });
+    document.querySelectorAll("[data-i18n-count]").forEach((el) => {
+      const count = Number(el.getAttribute("data-i18n-count") || 0);
+      const key = count === 1 ? "works.count.one" : "works.count.other";
+      el.textContent = tr(key).replaceAll("{count}", String(count));
+    });
+    document.querySelectorAll("[data-locale]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.getAttribute("data-locale") === locale));
+    });
+    document.dispatchEvent(new CustomEvent("site:language-changed", { detail: { locale } }));
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-locale]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const next = button.getAttribute("data-locale");
+        if (next !== "en" && next !== "ko") return;
+        locale = next;
+        try { localStorage.setItem(STORAGE, locale); } catch {}
+        applyTranslations();
+      });
+    });
+    applyTranslations();
+  });
+  document.addEventListener("site:refresh-translations", applyTranslations);
+})();
+</script>
