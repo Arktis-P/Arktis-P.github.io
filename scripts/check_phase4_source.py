@@ -73,7 +73,7 @@ def main() -> int:
     check('getCollection("works", ({ data }) => !data.draft)' in listing
           and 'getCollection("works", ({ data }) => !data.draft)' in detail,
           "draft entries excluded from lists and detail routes")
-    check('home.data.headline' in home and "{headlineLead}" in home,
+    check(''data-i18n-key="home.hero.title"' in home and 'from "../lib/i18n"' in home,
           "headline uses editable YAML source")
     check('featured_works' in home and 'data.featured' in home, "featured entries derive from content")
     check("data.order - b.data.order" in listing, "Work sorting uses metadata")

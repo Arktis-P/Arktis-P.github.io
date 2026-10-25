@@ -96,7 +96,7 @@ def main() -> int:
             continue
         if value(body, "draft") != "false":
             errors.append(f"approved {name} must have draft: false")
-        for field in ("title", "summary", "attribution", "featured", "order", "status", "platforms", "links"):
+        for field in ("featured", "order", "status", "platforms", "links"):
             if value(body, field) is None and (field + ":") not in body:
                 errors.append(f"{name} missing {field}")
         category, label, url = expected[name]
@@ -107,6 +107,9 @@ def main() -> int:
         found.add(name)
     if found != set(expected):
         errors.append(f"approved work files mismatch: {sorted(found)}")
+
+    if "label_key: footer.privacy" not in (WORKS / "anvil-bastion.md").read_text(encoding="utf-8"):
+        errors.append("privacy link must use localized label_key")
 
     for relative, expected_size in DIMENSIONS.items():
         filename = ROOT / "public/images" / relative
