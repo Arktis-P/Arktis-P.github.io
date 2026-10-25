@@ -29,3 +29,9 @@ These rules apply to all work in this repository. Read this file before editing.
 - The new site and its draft content use **burningarktis@gmail.com**, verified on Google Play; Proton Mail is legacy only. A legal-policy contact-only replacement must be reviewed before the published site switches over. Avoid modifying the existing privacy policy before that release gate.
 - The only currently approved public Works are **Anvil Bastion** and **VirtualQHDMirror**. No other repositories are automatically featured.
 - New site assets follow `docs/ASSET_GUIDE.md`; code must recognize fixed filenames automatically, tolerate missing images, and never require paid hosting.
+
+## Content and localization (2026-10-25)
+- The canonical source of visitor-visible EN/KO strings is `content/i18n/strings.csv`, not JSX/HTML, `content/home.yml` or Works Markdown. Structural metadata and links remain YAML/Markdown.
+- Preserve the same-page EN/KO switch, `data-i18n-key` references and language persistence; do not create language-specific routes without approval.
+- Run `python scripts/check_i18n_content.py` after changing user-visible text.
+- Color tokens are derived from the team flame logo. Favor high-contrast neutral content surfaces; accent red is for restrained emphasis.

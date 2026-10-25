@@ -74,3 +74,12 @@ The default preview server also uses localhost port 4321 (or the next free port)
 ## Validation honesty
 
 At authoring time, the GitHub connector can write and read the code, and static contract/source audits can be performed without hosted infrastructure. **The current assistant execution environment cannot download npm dependencies**, so an actual Astro build and Playwright screenshot review were **not completed**. This is a concrete gate, not a claim that build succeeded. Completion of the implementation source should not be confused with release-ready verified output.
+
+## Phase 4 extension — brand and localization (2026-10-25)
+
+- Logo reference: vibrant flame red/black/white; UI palette uses `#FF5344` accent, `#0C0D10` background, `#F5F7FA` foreground. Cards/content keep a high-contrast neutral surface.
+- Every current visible UI/description paragraph is now an EN/KO CSV key, including menu, filters, Home copy, About, two work titles/summary/details, 404, meta description/title and accessibility labels.
+- The header locale selector remembers EN/KO via localStorage and never changes the route. The no-JS static default remains English.
+- `content/about.md` removed; translated copy in `content/i18n/strings.csv`. Structure/links are still in Markdown/YAML.
+- Run `py scripts/check_i18n_content.py` before `npm run build`; see [TEXT_I18N_GUIDE.md](TEXT_I18N_GUIDE.md).
+- Actual Astro compilation and responsive screenshot QA are still separate release gates; no hosted CI or deployment initiated.

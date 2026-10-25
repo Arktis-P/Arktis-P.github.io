@@ -54,3 +54,10 @@ These tests require only Python's standard library. Actual Astro compilation and
 
 ## Phase 4 integration update (2026-10-25)
 The `src/pages/` templates and `src/components/` views are now connected to these collection definitions. Home headline, featured Works, public contact, Works list, project details and optional media are consumed from the content files and local media resolver. New-site `public/privacy.html` keeps all original policy wording while substituting the authorized Gmail contact only; the protected root `privacy.html` remains unchanged. Source/logic tests passed; actual Astro build is **not** yet verified in the assistant environment (offline npm and older Node).
+
+## CSV + EN/KO 전환 이관 (2026-10-25)
+
+- 현재 공개되는 Home·About·Works 목록·상세 작품 설명·버튼/접근성 문구는 **`content/i18n/strings.csv`**에서 관리합니다.
+- 기존 `content/about.md`는 삭제됐고, `content/home.yml`과 `content/works/*.md`에는 공개 여부와 분류·순서·링크 등 **구조 데이터**만 남겼습니다.
+- 기본 URL 하나에서 언어 전환이 이뤄지며, 선택 내용은 브라우저 저장소에 보존됩니다.
+- 관리 예시 및 QA 방법: [TEXT_I18N_GUIDE.md](TEXT_I18N_GUIDE.md).

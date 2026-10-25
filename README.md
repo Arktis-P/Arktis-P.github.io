@@ -34,7 +34,7 @@ The candidate entries inside the design preview are **not approved for publicati
 ## Phase 3: editable content and future image uploads
 
 - [Image names, directories and pixel dimensions](docs/ASSET_GUIDE.md) — copy new files to `public/images/` using exact names; absent files fall back gracefully when production page templates are implemented.
-- [Content schema and editing guide](docs/PHASE3_CONTENT_SCHEMA.md) — `content/home.yml`, `content/about.md`, `content/contact.yml`, `content/works/*.md`.
+- [Content schema and editing guide](docs/PHASE3_CONTENT_SCHEMA.md) — `content/home.yml`, `content/i18n/strings.csv`, `content/contact.yml`, `content/works/*.md`.
 - Technical contracts: `src/content.config.ts` (Astro Content Collections) and `src/lib/media.ts` (local build-time asset lookup).
 - No installation required for contract check: `py scripts/check_phase3_content.py`.
 
@@ -66,3 +66,13 @@ See [Phase 4 Implementation and QA](docs/PHASE4_IMPLEMENTATION.md) for the test 
 - Free, offline baseline check: `py scripts/check_site_baseline.py`
 
 Implementation branch: `gpt/site-redesign-implementation`, forked from the planning branch. Do not confuse branch commits with public deployment.
+
+## Bilingual text editing (EN/KO)
+
+All displayed copy, including About and project descriptions, is editable in `content/i18n/strings.csv`. The header language control switches without creating separate page URLs and remembers the choice. Configuration/data fields remain in `content/home.yml`, `content/works/*.md`, and `content/contact.yml`.
+
+**[한국어 사용 안내 — 텍스트 관리 및 언어 전환](docs/TEXT_I18N_GUIDE.md)**
+
+```powershell
+py scripts/check_i18n_content.py
+```

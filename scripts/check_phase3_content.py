@@ -128,6 +128,8 @@ def main() -> int:
         if not filename.is_file() or filename.name == ".gitkeep":
             continue
         relative = filename.relative_to(ROOT / "public/images").as_posix()
+        if relative.startswith("original/"):
+            continue  # User-supplied source logos; not auto-bound to the site.
         if relative not in DIMENSIONS:
             errors.append(f"unrecognized public image path: {relative}")
 
