@@ -24,40 +24,60 @@ const safeJson = JSON.stringify(translations).replace(/</g, String.fromCharCode(
     document.documentElement.lang = locale;
     document.querySelectorAll("[data-i18n-key]").forEach((el) => {
       const key = el.getAttribute("data-i18n-key");
-      if (key) el.textContent = tr(key);
+      if (key) paint(el, tr(key));
     });
-    document.querySelectorAll("[data-i18n-split]").forEach((el) => {
-      const key = el.getAttribute("data-i18n-split");
-      if (!key) return;
-      const value = tr(key);
-      const last = value.lastIndexOf(" ");
-      if (last < 0) { el.textContent = value; return; }
-      const emphasis = document.createElement("em");
-      emphasis.textContent = value.slice(last + 1);
-      el.replaceChildren(document.createTextNode(value.slice(0, last) + " "), emphasis);
+    function styledParts(value) {
+      const parts = [];
+      const pattern = /\[\[(accent|ink|muted|#[0-9a-fA-F]{6})\|([\s\S]*?)\]\]/g;
+      let start = 0;
+      for (const match of value.matchAll(pattern)) {
+        if (match.index > start) parts.push({ text: value.slice(start, match.index), color: null });
+        parts.push({ text: match[2], color: match[1] });
+        start = match.index + match[0].length;
+      }
+      if (start < value.length || parts.length === 0) parts.push({ text: value.slice(start), color: null });
+      return parts;
+    }
+    function plain(value) {
+      return styledParts(value).map((part) => part.text).join("");
+    }
+    function paint(el, value) {
+      const nodes = styledParts(value).map((part) => {
+        if (!part.color) return document.createTextNode(part.text);
+        const span = document.createElement("span");
+        span.className = "i18n-tone " + (part.color.startsWith("#") ? "i18n-tone-custom" : "i18n-tone-" + part.color);
+        if (part.color.startsWith("#")) span.style.color = part.color;
+        span.textContent = part.text;
+        return span;
+      });
+      el.replaceChildren(...nodes);
+    }
+    document.querySelectorAll("[data-i18n-rich]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-rich");
+      if (key) paint(el, tr(key));
     });
     document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
       const key = el.getAttribute("data-i18n-alt");
       if (!key) return;
       const number = el.getAttribute("data-i18n-number");
-      el.setAttribute("alt", tr(key).replaceAll("{number}", number || ""));
+      el.setAttribute("alt", plain(tr(key)).replaceAll("{number}", number || ""));
     });
     document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
       const key = el.getAttribute("data-i18n-aria-label");
-      if (key) el.setAttribute("aria-label", tr(key));
+      if (key) el.setAttribute("aria-label", plain(tr(key)));
     });
     document.querySelectorAll("[data-i18n-title]").forEach((el) => {
       const key = el.getAttribute("data-i18n-title");
-      if (key) el.textContent = tr(key) + " | Burning Arktis";
+      if (key) el.textContent = plain(tr(key)) + " | Burning Arktis";
     });
     document.querySelectorAll("[data-i18n-description]").forEach((el) => {
       const key = el.getAttribute("data-i18n-description");
-      if (key) el.setAttribute("content", tr(key));
+      if (key) el.setAttribute("content", plain(tr(key)));
     });
     document.querySelectorAll("[data-i18n-count]").forEach((el) => {
       const count = Number(el.getAttribute("data-i18n-count") || 0);
       const key = count === 1 ? "works.count.one" : "works.count.other";
-      el.textContent = tr(key).replaceAll("{count}", String(count));
+      el.textContent = plain(tr(key)).replaceAll("{count}", String(count));
     });
     document.querySelectorAll("[data-locale]").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.getAttribute("data-locale") === locale));

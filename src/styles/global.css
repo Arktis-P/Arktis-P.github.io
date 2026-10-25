@@ -136,3 +136,10 @@ h1{font-size:clamp(2.9rem,6.6vw,6.3rem)} h2{font-size:clamp(2rem,4vw,3.5rem)}
 .language-switch button:hover:not([aria-pressed="true"]){color:var(--ink);border-color:var(--line)}
 @media(max-width:640px){.header-inner{flex-wrap:wrap;padding-block:10px;gap:8px}.nav{margin-left:auto}.language-switch{margin-left:auto}}
 @media(max-width:390px){.brand{font-size:.65rem}.nav a{padding-inline:8px}.language-switch button{padding-inline:9px;font-size:.72rem}}
+
+/* CSV-controlled per-language inline colors. No automatic word-position highlighting. */
+.i18n-tone-accent{color:var(--accent)}
+.i18n-tone-ink{color:var(--ink)}
+.i18n-tone-muted{color:var(--muted)}
+.i18n-tone-custom{color:inherit}
+.hero h1{word-break:keep-all;overflow-wrap:break-word}

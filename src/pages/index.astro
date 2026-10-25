@@ -3,7 +3,7 @@ import { getCollection, getEntry } from "astro:content";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import MediaBlock from "../components/MediaBlock.astro";
 import { getBrandMedia, getWorkMedia } from "../lib/media";
-import { t } from "../lib/i18n";
+import { t, richParts } from "../lib/i18n";
 const home = await getEntry("home", "home");
 const contact = await getEntry("contact", "contact");
 if (!home || !contact) throw new Error("Missing home or contact data");
@@ -12,15 +12,21 @@ const featured = home.data.featured_works
   .map((slug) => published.find((entry) => entry.data.slug === slug && entry.data.featured))
   .filter((entry) => entry !== undefined);
 const media = getBrandMedia();
-const heroHeadline = t("home.hero.title");
-const heroLastSpace = heroHeadline.lastIndexOf(" ");
+const heroHeadlineParts = richParts("home.hero.title");
 ---
 <SiteLayout titleKey="page.home.title" descriptionKey="page.home.description">
   <div class="shell">
     <section class="hero" aria-labelledby="hero-title">
       <div>
         <span class="eyebrow" data-i18n-key="home.hero.eyebrow">{t("home.hero.eyebrow")}</span>
-        <h1 id="hero-title" data-i18n-split="home.hero.title">{heroLastSpace >= 0 ? heroHeadline.slice(0, heroLastSpace) : heroHeadline} {heroLastSpace >= 0 && <em>{heroHeadline.slice(heroLastSpace + 1)}</em>}</h1>
+        <h1 id="hero-title" data-i18n-rich="home.hero.title">
+          {heroHeadlineParts.map((part) =>
+            part.color ? (
+              <span class={"i18n-tone " + (part.color.startsWith("#") ? "i18n-tone-custom" : "i18n-tone-" + part.color)}
+                style={part.color.startsWith("#") ? "color:" + part.color : undefined}>{part.text}</span>
+            ) : part.text
+          )}
+        </h1>
         <p class="lead" data-i18n-key="home.hero.intro">{t("home.hero.intro")}</p>
         <div class="actions">
           <a class="btn btn-primary" href="/works/"><span data-i18n-key="home.hero.cta">{t("home.hero.cta")}</span> →</a>
