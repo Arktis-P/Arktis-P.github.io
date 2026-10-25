@@ -19,6 +19,15 @@ def blob_sha(data: bytes) -> str:
     return hashlib.sha1(header + data).hexdigest()
 
 
+def canonical_checkout_bytes(data: bytes) -> bytes:
+    """Normalize ONLY Windows CRLF checkouts to Git's original LF bytes.
+
+    The normalized content still must match the pinned original Git blob SHA;
+    arbitrary content edits, added spaces and non-newline mutations still fail.
+    """
+    return data.replace(b"\r\n", b"\n")
+
+
 def main() -> int:
     failures: list[str] = []
     checks: list[str] = []
@@ -35,23 +44,30 @@ def main() -> int:
             failures.append(f"[FAIL] missing protected root {name}")
             continue
         original = origin.read_bytes()
-        if blob_sha(original) != expected:
-            failures.append(f"[FAIL] original {name} changed")
+        canonical = canonical_checkout_bytes(original)
+        if blob_sha(canonical) != expected:
+            failures.append(
+                f"[FAIL] original {name} changed beyond Windows CRLF normalization "
+                f"(expected protected Git blob {expected}, "
+                f"actual normalized {blob_sha(canonical)})")
+        elif original != canonical:
+            checks.append(f"[PASS] original {name} matches protected Git blob "
+                          f"after Windows CRLF normalization")
         else:
             checks.append(f"[PASS] original {name} matches protected Git blob")
         if not publish.is_file():
             failures.append(f"[FAIL] missing public/{name} (Astro output source)")
             continue
-        published = publish.read_bytes()
+        published = canonical_checkout_bytes(publish.read_bytes())
         if name == "privacy.html":
-            # The site owner authorized one specific change: legacy mail -> Gmail.
-            # All other privacy-policy bytes MUST remain identical.
-            approved = original.replace(b"burningarktis@proton.me", b"burningarktis@gmail.com")
-            ok = (b"burningarktis@proton.me" in original
+            # Only allow the approved email substitutions, plus checkout CRLF.
+            approved = canonical.replace(b"burningarktis@proton.me",
+                                         b"burningarktis@gmail.com")
+            ok = (b"burningarktis@proton.me" in canonical
                   and b"burningarktis@gmail.com" in published
                   and published == approved)
         else:
-            ok = published == original
+            ok = published == canonical
         if ok:
             checks.append(f"[PASS] public/{name} equals approved protected variant")
         else:

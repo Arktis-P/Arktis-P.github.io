@@ -51,3 +51,12 @@ py scripts/publish_pages.py --publish
 ## 출하 기준
 
 실제 npm 빌드·모든 검사 PASS, 세 Works 카드/상세, 영어·한국어 유지, 게임 Google Play·소프트웨어 GitHub·SpriteForge 공식 URL, 데스크톱/모바일 텍스트 잘림 없음, Gmail 및 이전 AdMob 인증 보존. 
+
+## Windows 줄바꿈으로 인한 Phase 1 보호 검사 실패 해결 (2026-10-25)
+
+- 초기 배포 검사에서 `original privacy.html changed`, `original app-ads.txt changed`가 발생할 수 있습니다. Git 원격에 저장된 원본 해시는 정상인데 Windows의 `core.autocrlf`가 체크아웃 시 `LF → CRLF`로 변환하면 단순 바이트 SHA 비교가 실패하기 때문입니다.
+- `check_site_baseline.py`는 이제 **CRLF만 LF로 환원한 후 원본 Git blob SHA를 엄격하게 비교**합니다. 파일 내용의 다른 변경은 여전히 차단됩니다.
+- 배포용 개인정보처리방침은 승인된 Gmail 교체만 허용합니다. 광고 인증은 기존 원문과 동일해야 합니다. 실제 `main`에 게시하는 두 파일은 LF 줄바꿈으로 정규화합니다.
+- `check_phase4_source.py`도 동일한 CRLF-only 비교를 사용합니다.
+- Windows에서 `git config core.autocrlf` 결과가 `true`라면 이번 수정으로 재시도할 수 있습니다. 보호 검사기나 정책 파일을 임의로 삭제·덮어쓰지 마세요.
+- 오류가 계속되면 `git status --short`, `git diff -- privacy.html app-ads.txt public/privacy.html public/app-ads.txt`, `git config --show-origin --get core.autocrlf`을 기록해 원인 분석을 요청하세요. 민감한 원문 전체를 공유할 필요는 없습니다.

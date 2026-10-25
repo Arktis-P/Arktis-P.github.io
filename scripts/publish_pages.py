@@ -180,7 +180,12 @@ def deploy(repo: Path, dist: Path, files: list[str], source_head: str, old_main:
             for rel in files:
                 dest = worktree / rel
                 dest.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(dist / rel, dest)
+                if rel in PUBLIC_PROTECTION_FILES:
+                    # Publish LF bytes regardless of Windows checkout EOL settings.
+                    # The baseline checker has already verified these exact contents.
+                    dest.write_bytes((dist / rel).read_bytes().replace(b"\r\n", b"\n"))
+                else:
+                    shutil.copy2(dist / rel, dest)
             (worktree / ".nojekyll").write_bytes(b"")
             (worktree / RELEASE_FILE).write_text(
                 json.dumps(release, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
@@ -191,8 +196,12 @@ def deploy(repo: Path, dist: Path, files: list[str], source_head: str, old_main:
             )
             git(worktree, "add", "-A")
             staged = git(worktree, "diff", "--cached", "--name-only", capture=True)
-            require("index.html" in staged and "privacy.html" in staged,
-                    "Unexpected publish diff; refused to push")
+            changed = set(staged.splitlines())
+            allowed = set(files) | {".nojekyll", MANIFEST_FILE, RELEASE_FILE}
+            allowed |= {p.relative_to(worktree).as_posix()
+                        for p in safe_manifest_paths(worktree)}
+            require(changed and changed.issubset(allowed),
+                    "Unexpected publish diff; refused to push: " + staged)
             print("\nFiles staged for deployment:\n" + staged)
             git(worktree, "commit", "-m",
                 "🚀 deploy(site): publish verified Astro static release " + source_head[:7])

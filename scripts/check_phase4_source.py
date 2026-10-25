@@ -93,14 +93,17 @@ def main() -> int:
           "static output targets original Pages domain")
     check(not (ROOT / ".github/workflows").exists(), "no GitHub Actions workflow installed")
 
-    root_privacy = (ROOT / "privacy.html").read_bytes()
-    output_privacy = (ROOT / "public/privacy.html").read_bytes()
+    # Git stores LF, while Windows core.autocrlf may check out CRLF.
+    # Normalize solely CRLF, then compare protected content exactly.
+    lf = lambda data: data.replace(b"\r\n", b"\n")
+    root_privacy = lf((ROOT / "privacy.html").read_bytes())
+    output_privacy = lf((ROOT / "public/privacy.html").read_bytes())
     expected = root_privacy.replace(b"burningarktis@proton.me", b"burningarktis@gmail.com")
     check(b"burningarktis@proton.me" in root_privacy and output_privacy == expected,
           "published privacy copy differs ONLY by authorized contact address")
-    check((ROOT / "public/app-ads.txt").read_bytes()
-          == (ROOT / "app-ads.txt").read_bytes(),
-          "published app-ads authorization bytes unchanged")
+    check(lf((ROOT / "public/app-ads.txt").read_bytes())
+          == lf((ROOT / "app-ads.txt").read_bytes()),
+          "published app-ads authorization content unchanged after CRLF normalization")
     check(MAIL in (ROOT / "content/contact.yml").read_text(encoding="utf-8"),
           "approved Gmail contact in content")
     check(PLAY in (ROOT / "content/works/anvil-bastion.md").read_text(encoding="utf-8")
@@ -136,8 +139,9 @@ def main() -> int:
                       "built site and privacy have approved contact")
                 check(not any("proton.me" in body.lower() for body in rendered.values()),
                       "no legacy Proton address in built HTML")
-                check((dist / "app-ads.txt").read_bytes() == (ROOT / "app-ads.txt").read_bytes(),
-                      "built app-ads.txt exact authorization preserved")
+                check(lf((dist / "app-ads.txt").read_bytes())
+                      == lf((ROOT / "app-ads.txt").read_bytes()),
+                      "built app-ads.txt authorization preserved after CRLF normalization")
                 for page, body in rendered.items():
                     links = Links()
                     links.feed(body)

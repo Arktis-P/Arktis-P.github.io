@@ -1,0 +1,6 @@
+# Preserve canonical LF checkouts for legally relevant static pages.
+# Previously checked-out CRLF working copies are tolerated by the offline verifier.
+privacy.html text eol=lf
+app-ads.txt text eol=lf
+public/privacy.html text eol=lf
+public/app-ads.txt text eol=lf
