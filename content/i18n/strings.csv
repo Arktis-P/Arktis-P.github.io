@@ -1,0 +1,79 @@
+key,en,ko
+nav.home,Home,홈
+nav.works,Works,작품
+nav.language,Site language,사이트 언어
+footer.privacy,Privacy Policy,개인정보처리방침
+footer.contact,Contact,문의
+footer.github,GitHub,GitHub
+common.image.slot,BURNING ARKTIS / ARTWORK SLOT,BURNING ARKTIS / 이미지 영역
+common.image.pending,IMAGE PENDING,이미지 준비 중
+common.image.studio,BA / STUDIO,BA / STUDIO
+common.category.game,Game,게임
+common.category.software,Software,소프트웨어
+common.category.experiment,Experiment,실험
+page.home.title,Home,홈
+page.home.description,A home for games and selected software projects.,게임과 공개된 소프트웨어 프로젝트를 소개합니다.
+home.hero.eyebrow,Games / Software / Creative Experiments,게임 / 소프트웨어 / 크리에이티브 프로젝트
+home.hero.title,Making things worth exploring.,탐험할 가치가 있는 것을 만듭니다.
+home.hero.intro,A home for games and selected software projects.,게임과 공개된 소프트웨어 프로젝트를 소개합니다.
+home.hero.cta,Explore Works,작품 둘러보기
+home.hero.alt,Burning Arktis studio showcase artwork,Burning Arktis 팀 대표 이미지
+home.hero.hint,STUDIO VISUAL,팀 메인 이미지
+home.featured.eyebrow,Selected work,주요 작품
+home.featured.title,Featured Project,대표 프로젝트
+home.featured.all,All works,전체 작품
+home.featured.view,View project,프로젝트 보기
+home.about.eyebrow,About us,팀 소개
+home.about.title,Independent by design.,독립적인 창작과 개발.
+home.about.p1,Burning Arktis creates games and shares selected software projects.,Burning Arktis는 게임을 제작하고 엄선된 소프트웨어 프로젝트를 공개합니다.
+home.about.p2,"Our portfolio includes Anvil Bastion, published on Google Play under Team Burning Arktis, and VirtualQHDMirror, a public Windows utility in the Arktis-P GitHub account.",포트폴리오에는 Team Burning Arktis 명의로 Google Play에 공개된 Anvil Bastion과 Arktis-P GitHub에 공개된 Windows 유틸리티 VirtualQHDMirror가 포함됩니다.
+home.about.p3,Individual project credits and distribution links are shown separately. Unpublished projects are not automatically listed.,프로젝트별 제작 정보와 배포 링크를 별도로 안내하며 비공개 프로젝트는 자동 등록하지 않습니다.
+home.contact.eyebrow,Contact & support,문의 및 지원
+home.contact.title,Get in touch.,문의하기
+home.contact.body,Questions about our work or Anvil Bastion? Contact us directly.,작품이나 Anvil Bastion에 대한 문의가 있다면 이메일로 연락해 주세요.
+page.works.title,Works,작품
+page.works.description,Browse Burning Arktis games and public software projects.,Burning Arktis의 게임과 공개 소프트웨어 프로젝트를 소개합니다.
+works.eyebrow,Selected portfolio,공개 포트폴리오
+works.heading,Our Works.,작품 소개
+works.intro,"Games, software and selected experiments. Explore public projects and verified distribution links.",공개된 게임과 소프트웨어 프로젝트를 확인하고 공식 배포 링크로 이동할 수 있습니다.
+works.filter.all,All,전체
+works.filter.game,Games,게임
+works.filter.software,Software,소프트웨어
+works.filter.experiment,Experiments,실험
+works.count.one,{count} work,{count}개 작품
+works.count.other,{count} works,{count}개 작품
+works.empty,No published works in this category yet. Select another filter.,이 분류에 공개된 작품이 없습니다. 다른 필터를 선택해 주세요.
+works.card.view,View details,상세 보기
+detail.back,Back to Works,작품 목록으로
+detail.published,Published work,공개 프로젝트
+detail.overview.eyebrow,Overview,개요
+detail.overview.title,About this work,프로젝트 소개
+detail.facts.eyebrow,Project facts,프로젝트 정보
+detail.facts.category,Category,분류
+detail.facts.attribution,Attribution,제작·공개 정보
+detail.facts.platform,Platform,플랫폼
+detail.related,Related links,관련 링크
+detail.gallery.eyebrow,Gallery,갤러리
+detail.gallery.title,Screenshots,스크린샷
+page.404.title,Not Found,페이지 없음
+page.404.description,The requested page was not found.,요청하신 페이지를 찾을 수 없습니다.
+page.404.eyebrow,404 / Page not found,404 / 페이지 없음
+page.404.heading,Nothing at this address.,해당 주소에 페이지가 없습니다.
+page.404.body,Browse our published works or return to the homepage.,공개 작품 목록을 확인하거나 홈으로 돌아가 주세요.
+page.404.cta,View Works,작품 보기
+work.anvil-bastion.title,Anvil Bastion,Anvil Bastion
+work.anvil-bastion.summary,"A mobile incremental defense game built around a stationary fortress, equipment forging and automatic combat.",거점을 방어하며 장비를 제작하고 자동 전투를 진행하는 모바일 방치형 디펜스 게임입니다.
+work.anvil-bastion.attribution,Team Burning Arktis,Team Burning Arktis
+work.anvil-bastion.platforms,Android,Android
+work.anvil-bastion.p1,"Defend your Bastion while forging gear, refining character builds and progressing through automatic battles.",장비를 제작하고 빌드를 강화하며 자동 전투를 통해 요새를 방어합니다.
+work.anvil-bastion.p2,"Visit Google Play for the current game description, screenshots and download information.","게임 소개, 스크린샷 및 다운로드 정보는 Google Play에서 확인할 수 있습니다."
+work.anvil-bastion.cover.alt,Anvil Bastion cover art,Anvil Bastion 대표 이미지
+work.anvil-bastion.screenshot.alt,Anvil Bastion screenshot {number},Anvil Bastion 스크린샷 {number}
+work.virtualqhdmirror.title,VirtualQHDMirror,VirtualQHDMirror
+work.virtualqhdmirror.summary,Interact with a higher-resolution virtual desktop using a lower-resolution physical Windows display.,낮은 해상도의 물리 모니터에서 높은 해상도의 가상 Windows 데스크톱을 조작하는 소프트웨어입니다.
+work.virtualqhdmirror.attribution,Arktis-P public GitHub project,Arktis-P 공개 GitHub 프로젝트
+work.virtualqhdmirror.platforms,Windows 11,Windows 11
+work.virtualqhdmirror.p1,VirtualQHDMirror provides interactive access to a higher-resolution virtual desktop from a lower-resolution physical display.,VirtualQHDMirror는 물리 모니터보다 해상도가 높은 가상 데스크톱을 표시하고 입력할 수 있게 합니다.
+work.virtualqhdmirror.p2,"See the GitHub README for system requirements, driver information, releases and setup instructions.","시스템 요구사항, 드라이버 안내, 릴리스 및 설치 방법은 GitHub README에서 확인할 수 있습니다."
+work.virtualqhdmirror.cover.alt,VirtualQHDMirror cover art,VirtualQHDMirror 대표 이미지
+work.virtualqhdmirror.screenshot.alt,VirtualQHDMirror screenshot {number},VirtualQHDMirror 스크린샷 {number}
