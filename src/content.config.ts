@@ -27,7 +27,7 @@ const primaryLink = z.object({
 });
 
 const secondaryLink = z.object({
-  label_key: z.string().regex(/^[a-z0-9]+[a-z0-9._-]*$/),
+  label_key: z.string().regex(/^[a-z][A-Za-z0-9]*(?:[._-][A-Za-z0-9]+)*$/),
   url: z.string().refine((value) =>
     /^\/(?!\/)[a-z0-9/_#.?-]+$/i.test(value) ||
     /^https:\/\/[^\s]+$/i.test(value),

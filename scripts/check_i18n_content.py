@@ -19,6 +19,8 @@ FILES = [
     "src/pages/404.astro",
 ]
 WORKS = ["anvil-bastion", "virtualqhdmirror"]
+TRANSLATION_KEY_RE = re.compile(r"[a-z][A-Za-z0-9]*(?:[._-][A-Za-z0-9]+)*")
+
 REQUIRED_PARTS = [
     "title", "summary", "attribution", "platforms",
     "p1", "p2", "cover.alt", "screenshot.alt",
@@ -26,6 +28,25 @@ REQUIRED_PARTS = [
 
 def main() -> int:
     failures: list[str] = []
+    # Regression: keep camelCase a11y keys valid, reject malformed IDs.
+    valid_examples = ("a11y.brandHome", "a11y.aboutContact", "a11y.projectInfo",
+                      "work.anvil-bastion.cover.alt", "works.count.one")
+    invalid_examples = ("a11y..brandHome", "a11y.brand home",
+                        "a11y.brandHome!", ".a11y", "a11y.", "a11y/brandHome")
+    for key in valid_examples:
+        if not TRANSLATION_KEY_RE.fullmatch(key):
+            failures.append(f"valid translation key rejected: {key}")
+    for key in invalid_examples:
+        if TRANSLATION_KEY_RE.fullmatch(key):
+            failures.append(f"invalid translation key accepted: {key}")
+    # Ensure the TS loader and the Astro secondary-link schema use the same rules.
+    ts = (ROOT / "src/lib/i18n.ts").read_text(encoding="utf-8")
+    schema = (ROOT / "src/content.config.ts").read_text(encoding="utf-8")
+    expected_ts = "TRANSLATION_KEY_PATTERN = /^[a-z][A-Za-z0-9]*(?:[._-][A-Za-z0-9]+)*$/"
+    if expected_ts not in ts:
+        failures.append("TypeScript translation-key validation differs from the Python checker")
+    if "label_key: z.string().regex(/^[a-z][A-Za-z0-9]*(?:[._-][A-Za-z0-9]+)*$/)" not in schema:
+        failures.append("Astro label_key schema differs from the translation-key rule")
     try:
         with CSV_FILE.open(encoding="utf-8-sig", newline="") as file:
             table = csv.DictReader(file)
@@ -35,7 +56,7 @@ def main() -> int:
             for number, row in enumerate(table, start=2):
                 key = row.get("key", "")
                 en, ko = row.get("en"), row.get("ko")
-                if not key or not re.fullmatch(r"[a-z0-9]+[a-z0-9._-]*", key):
+                if not key or not TRANSLATION_KEY_RE.fullmatch(key):
                     failures.append(f"invalid key on line {number}: {key}")
                 if key in translations:
                     failures.append(f"duplicate key: {key}")
@@ -54,9 +75,9 @@ def main() -> int:
     required: set[str] = set()
     for name, source in files.items():
         for regex in (
-            r'\bt\("([a-z0-9._-]+)"\)',
-            r'\bdata-i18n-(?:key|split|alt|aria-label)="([a-z0-9._-]+)"',
-            r'\b(?:titleKey|descriptionKey)="([a-z0-9._-]+)"',
+            r'\bt\("([A-Za-z0-9._-]+)"\)',
+            r'\bdata-i18n-(?:key|split|alt|aria-label)="([A-Za-z0-9._-]+)"',
+            r'\b(?:titleKey|descriptionKey)="([A-Za-z0-9._-]+)"',
         ):
             required.update(re.findall(regex, source))
     for slug in WORKS:

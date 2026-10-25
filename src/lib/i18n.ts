@@ -5,6 +5,9 @@ export type Locale = "en" | "ko";
 export type Translation = { en: string; ko: string };
 export type Dictionary = Record<string, Translation>;
 
+/** Keys can use existing camelCase segments, e.g. a11y.brandHome. */
+export const TRANSLATION_KEY_PATTERN = /^[a-z][A-Za-z0-9]*(?:[._-][A-Za-z0-9]+)*$/;
+
 /** Strict comma-separated parser supporting quoted commas/newlines/double quotes. */
 export function parseCsv(input: string): string[][] {
   const rows: string[][] = [];
@@ -42,7 +45,7 @@ export const translations: Dictionary = {};
 for (const [index, row] of rows.entries()) {
   if (row.length !== 3) throw new Error("i18n CSV row " + (index + 2) + " must have 3 columns");
   const [key, en, ko] = row;
-  if (!/^[a-z0-9]+[a-z0-9._-]*$/.test(key)) throw new Error("Invalid translation key: " + key);
+  if (!TRANSLATION_KEY_PATTERN.test(key)) throw new Error("Invalid translation key: " + key);
   if (Object.prototype.hasOwnProperty.call(translations, key)) throw new Error("Duplicate translation key: " + key);
   if (!en.trim() || !ko.trim()) throw new Error("Missing bilingual value for " + key);
   translations[key] = { en, ko };
