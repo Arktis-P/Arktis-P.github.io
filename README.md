@@ -79,4 +79,15 @@ py scripts/check_i18n_content.py
 
 ## SpriteForge portfolio entry
 
-SpriteForge (`https://spriteforge.cc/`) is included as a third published work in the **Software** category, linking to the live service rather than its private 비공개 소스 저장소 source repository. Its text is in `content/i18n/strings.csv`; its optional images are documented in `docs/ASSET_GUIDE.md`. The new detail route is `/works/spriteforge/`.
+SpriteForge (`https://spriteforge.cc/`) is included as a third published work in the **Software** category, linking to the live service rather than its private source repository. Its text is in `content/i18n/strings.csv`; its optional images are documented in `docs/ASSET_GUIDE.md`. The new detail route is `/works/spriteforge/`.
+
+## Static deployment to the existing GitHub Pages main branch
+
+The owner approved deployment on 2026-10-25. **The Astro source branch alone is not a deploy**. No Actions workflow, PR, or paid CI should be added. From the local clone with Node.js installed:
+
+```powershell
+py scripts/publish_pages.py --dry-run
+py scripts/publish_pages.py --publish
+```
+
+The script runs the real Astro build and offline QA, then pushes **only the checked `dist/` files** to the existing `main` root via a temporary Git worktree. Review the full [manual publish/rollback guidance](docs/PUBLISH_GUIDE_20261025.md) before publishing. This is not an automatic deployment on editing the CSV: re-run after content/image changes.
