@@ -1,9 +1,7 @@
 ---
-title: Anvil Bastion
+# Metadata only. Visitor-facing copy: content/i18n/strings.csv (work.anvil-bastion.*).
 slug: anvil-bastion
-summary: A mobile incremental defense game built around a stationary fortress, equipment forging and automatic combat.
 category: game
-attribution: Team Burning Arktis
 featured: true
 order: 10
 draft: false
@@ -15,9 +13,6 @@ links:
     label: Google Play
     url: https://play.google.com/store/apps/details?id=com.burningarktis.anvilbastion
   secondary:
-    - label: Privacy Policy
+    - label_key: footer.privacy
       url: /privacy.html
 ---
-Defend your Bastion while forging gear, refining character builds and progressing through automatic battles.
-
-Visit Google Play for the current game description, screenshots and download information.

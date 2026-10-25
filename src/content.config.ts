@@ -1,5 +1,5 @@
 /**
- * Phase 3: content contract. Actual Astro pages will consume these in Phase 4.
+ * Content contract: localized copy is in content/i18n/strings.csv, not Markdown body.
  * Astro >= 5 uses the Content Layer API: glob/file loaders + z from astro/zod.
  * No CMS, runtime API calls, GitHub Actions or paid service is required.
  */
@@ -27,7 +27,7 @@ const primaryLink = z.object({
 });
 
 const secondaryLink = z.object({
-  label: z.string().min(1).max(45),
+  label_key: z.string().regex(/^[a-z0-9]+[a-z0-9._-]*$/),
   url: z.string().refine((value) =>
     /^\/(?!\/)[a-z0-9/_#.?-]+$/i.test(value) ||
     /^https:\/\/[^\s]+$/i.test(value),
@@ -37,11 +37,8 @@ const secondaryLink = z.object({
 const works = defineCollection({
   loader: glob({ base: "./content/works", pattern: "**/*.md" }),
   schema: z.object({
-    title: z.string().min(1).max(100),
     slug,
-    summary: z.string().min(20).max(300),
     category: z.enum(["game", "software", "experiment"]),
-    attribution: z.string().min(2).max(140),
     featured: z.boolean().default(false),
     order: z.number().int().min(0),
     draft: z.boolean().default(true),
@@ -60,10 +57,6 @@ const home = defineCollection({
   schema: z.object({
     id: z.literal("home"),
     site_name: z.literal("Burning Arktis"),
-    eyebrow: z.string().min(3),
-    headline: z.string().min(3),
-    introduction: z.string().min(3),
-    primary_cta_label: z.string().min(2),
     featured_works: z.array(slug),
   }),
 });
@@ -78,9 +71,4 @@ const contact = defineCollection({
   }),
 });
 
-const about = defineCollection({
-  loader: glob({ base: "./content", pattern: "about.md" }),
-  schema: z.object({ title: z.string().min(1) }),
-});
-
-export const collections = { home, contact, about, works };
+export const collections = { home, contact, works };
