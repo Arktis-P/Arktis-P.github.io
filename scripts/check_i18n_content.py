@@ -176,10 +176,16 @@ def main() -> int:
         failures.append("rich text must render via safe DOM nodes, not HTML injection")
     if "parseStyledText" not in loader or "insufficient contrast" not in loader:
         failures.append("build-time emphasis validation missing")
-    if "home.hero.title" not in translations or "[[accent|" not in translations["home.hero.title"]["en"]:
-        failures.append("English homepage heading lacks explicit CSV highlight")
-    if "home.hero.title" not in translations or "[[accent|" not in translations["home.hero.title"]["ko"]:
-        failures.append("Korean homepage heading lacks independent CSV highlight")
+    # The editor may choose NO highlight, a different token, or different ranges per locale.
+    # Do not require a specific color/word position in the user's CSV.
+    if "home.hero.title" not in translations:
+        failures.append("missing homepage headline translation key")
+    else:
+        for language in ("en", "ko"):
+            try:
+                validate_emphasis(translations["home.hero.title"][language])
+            except ValueError as exc:
+                failures.append(f"invalid {language} homepage headline style: {exc}")
     if "site:refresh-translations" not in listing or "data-i18n-count" not in listing:
         failures.append("works filter does not refresh localized result count")
     if (ROOT / "src/pages/ko").exists() or (ROOT / "src/pages/en").exists():
