@@ -1,68 +1,145 @@
-# Burning Arktis — Image & Logo Asset Guide
+# Burning Arktis 홈페이지 이미지·로고 등록 가이드
 
-> Phase 3 contract (2026-10-25). **No assets are required immediately**. The user can add each asset later; planned production templates will automatically load exactly named files if present and show a deliberate text/CSS placeholder otherwise. The current standalone Phase 2 wireframe is a separate review artifact and does not auto-read these files.
+> 대상: `Arktis-P/Arktis-P.github.io` · 작업 브랜치: `gpt/site-redesign-implementation`  
+> 목적: 사용자가 **로고·게임 이미지·소프트웨어 스크린샷을 나중에 하나씩 추가**하더라도 코드나 콘텐츠 설정을 수정하지 않고 홈페이지에 반영할 수 있도록 파일 경로와 규격을 고정합니다.
 
-## 1. Copy files into these exact locations
+## 1. 가장 먼저 알아둘 사항
 
-All paths below are relative to the Git repository root, under **`public/images/`** (not `docs/`, `src/` or a release folder). Filenames are **case-sensitive** when deployed to GitHub Pages. Dimensions below are target pixel sizes after export.
+1. **모든 이미지는 저장소 최상위의 `public/images/`에 넣습니다.** `src/`, `docs/`, `dist/`에 넣지 않습니다.
+2. 아래 표에 적힌 **폴더명·파일명·확장자를 정확하게** 사용합니다. GitHub Pages에서는 대소문자도 구분하므로 영문 소문자를 사용합니다.
+3. 파일을 넣지 않아도 홈페이지는 정상 작동합니다. 로고·커버·메인 이미지가 없으면 기존 텍스트/도형 대체 화면이 표시되고, 스크린샷이 없으면 갤러리 영역이 생기지 않습니다.
+4. 이미지 경로를 YAML/Markdown에 따로 입력할 필요는 없습니다. 실제 Astro 페이지가 `src/lib/media.ts`를 통해 파일 존재 여부를 확인합니다.
+5. **추가한 이미지를 공개 홈페이지에 적용하려면 정적 사이트를 다시 빌드하고, 별도로 승인된 배포 과정을 거쳐야 합니다.** 작업 브랜치에 파일을 올리는 것만으로 기존 운영 사이트가 바뀌지는 않습니다.
 
-| File path | Use | Export size | Format |
+## 2. 파일별 저장 위치와 해상도
+
+아래 경로는 모두 **저장소 루트 기준**입니다. 해상도는 가로 × 세로이며, 현재 로컬 검사기에서 **정확하게 검사하는 규격**입니다.
+
+### 2-1. 홈페이지 공통 이미지
+
+| 용도 | 정확한 파일 경로 | 해상도 | 파일 형식 |
 | --- | --- | --- | --- |
-| `public/images/brand/wordmark.png` | Logo text in header (fallback: styled studio name) | **1200 × 300 px** | PNG with transparency |
-| `public/images/brand/mark.png` | Compact symbol / optional site icon | **512 × 512 px** | PNG with transparency |
-| `public/images/brand/hero.webp` | Home hero artwork (fallback: CSS graphic) | **1920 × 1080 px** (16:9) | WebP, sRGB |
-| `public/images/works/anvil-bastion/cover.webp` | Anvil Bastion card and detail cover | **1280 × 720 px** (16:9) | WebP, sRGB |
-| `public/images/works/anvil-bastion/shot-01.webp` … `shot-06.webp` | Optional Anvil Bastion gameplay gallery | **1080 × 1920 px** (9:16 portrait) | WebP, sRGB |
-| `public/images/works/virtualqhdmirror/cover.webp` | VQM card and detail cover | **1280 × 720 px** (16:9) | WebP, sRGB |
-| `public/images/works/virtualqhdmirror/shot-01.webp` … `shot-06.webp` | Optional VQM screenshots | **1600 × 900 px** (16:9 landscape) | WebP, sRGB |
+| 상단 헤더의 팀 로고(글자 포함) | `public/images/brand/wordmark.png` | **1200 × 300 px** | 투명 PNG |
+| 로고가 없을 때 사용하는 보조 심볼 | `public/images/brand/mark.png` | **512 × 512 px** | 투명 PNG |
+| Home 상단 메인 비주얼 | `public/images/brand/hero.webp` | **1920 × 1080 px** (16:9) | WebP |
 
-**Examples**: To add just an Anvil card image, copy an exported 1280×720 WebP as `public/images/works/anvil-bastion/cover.webp`. To add the next portrait screenshot, save it as `shot-02.webp` in the same folder. `shot-01` … `shot-06` are discovered in ascending order; missing numbers are skipped without breaking the gallery.
+**로고 표시 우선순위:** `wordmark.png`가 있으면 헤더에는 이 이미지를 표시합니다. `wordmark.png`가 없고 `mark.png`만 있으면 심볼과 `BURNING ARKTIS` 텍스트를 표시합니다. 둘 다 없다면 기본 CSS 심볼과 텍스트를 사용합니다. 현재 `mark.png`는 **브라우저 탭 파비콘으로 자동 설정되지 않습니다.**
 
-## 2. Automatic display rules
+### 2-2. Anvil Bastion
 
-The Phase 3 code contract is implemented by `src/lib/media.ts`:
+| 용도 | 정확한 파일 경로 | 해상도 | 파일 형식 |
+| --- | --- | --- | --- |
+| Works 카드 및 작품 상세 대표 이미지 | `public/images/works/anvil-bastion/cover.webp` | **1280 × 720 px** (16:9) | WebP |
+| 작품 상세 스크린샷 1~6 | `public/images/works/anvil-bastion/shot-01.webp` ~ `shot-06.webp` | **1080 × 1920 px** (9:16 세로형) | WebP |
 
-- Header: if `brand/wordmark.png` exists, display it with appropriate alt text; otherwise display text `Burning Arktis`. The compact `mark.png` is optional.
-- Home: use `brand/hero.webp` if present, otherwise retain a legible CSS-only visual.
-- Work card and detail: find `works/{slug}/cover.webp` by the approved `slug`. If absent, display a typography-based placeholder; **never a broken image**.
-- Detail gallery: automatically include whatever of `shot-01.webp` … `shot-06.webp` exist, in numerical order. If none exists, omit the gallery.
-- There is **no filename entry to edit in a Markdown/YAML file**. After adding an asset, rebuild the site locally and publish the generated static output through the separately approved publishing process.
-- The image source is local; no runtime fetching, CMS, CDN subscription or GitHub Actions is required.
+Anvil Bastion은 모바일 게임이므로 게임 플레이 스크린샷은 세로형 9:16을 기준으로 합니다. 대표 이미지는 Works 카드와 상세 페이지에서 공통으로 사용하므로 별도의 카드 이미지를 만들 필요가 없습니다.
 
-**Important:** **Phase 4 Astro pages are now wired** to the asset-discovery helper. Run `npm run build` after adding files to regenerate static output; source-branch changes alone do not update the public site. These paths do **not** automatically change the standalone `docs/wireframes/index.html` preview.
+### 2-3. VirtualQHDMirror
 
-## 3. Export recommendations
+| 용도 | 정확한 파일 경로 | 해상도 | 파일 형식 |
+| --- | --- | --- | --- |
+| Works 카드 및 작품 상세 대표 이미지 | `public/images/works/virtualqhdmirror/cover.webp` | **1280 × 720 px** (16:9) | WebP |
+| 작품 상세 스크린샷 1~6 | `public/images/works/virtualqhdmirror/shot-01.webp` ~ `shot-06.webp` | **1600 × 900 px** (16:9 가로형) | WebP |
 
-- Keep the principal subject and important text within the central ~80% of landscape covers, since responsive cards may crop the sides. Put readable text in HTML rather than baking it into an image when possible.
-- Google Play portrait screenshots should be cropped/exported to 1080×1920 with correct aspect ratio; do not squash 9:16 game screenshots into 16:9.
-- Use WebP quality ~80–85 with an sRGB color profile. Aim for approximately **200–500 KB** per cover and **under 800 KB** per screenshot where practical; these are guidance, not hard limits.
-- Do not commit PSD/AI/CLIP source files into `public/`. Keep editable source assets outside the published web root.
-- Only upload images for which the studio has publishing rights, and exclude personal data, debug consoles, unpublished features or internal UI notes.
-- Lowercase ASCII filenames and **hyphens** in slugs; no spaces, date suffixes, `(1)`, `.jpg.webp`, or alternative extensions.
-- The existing site can function without any images until the final art is ready.
+VirtualQHDMirror는 Windows 소프트웨어이므로 스크린샷은 가로형 16:9를 기준으로 합니다.
 
-## 4. Adding an image on Windows
+## 3. 폴더 구조 예시
 
-```powershell
-git switch gpt/site-redesign-implementation
-# Example: copy your already-exported file to the exact expected path
-Copy-Item "C:\path\to\your-export.webp" "public\images\works\anvil-bastion\cover.webp"
-py scripts/check_phase3_content.py
-git add public/images/works/anvil-bastion/cover.webp
-git commit -m "🖼️ assets(site): add Anvil Bastion cover artwork"
+```text
+Arktis-P.github.io/
+└─ public/
+   └─ images/
+      ├─ brand/
+      │  ├─ wordmark.png               # 상단 팀 로고
+      │  ├─ mark.png                   # 보조 심볼
+      │  └─ hero.webp                  # Home 메인 비주얼
+      └─ works/
+         ├─ anvil-bastion/
+         │  ├─ cover.webp              # 게임 대표 이미지
+         │  ├─ shot-01.webp            # 게임 스크린샷 1
+         │  ├─ shot-02.webp            # 게임 스크린샷 2
+         │  └─ ...                     # shot-06.webp까지
+         └─ virtualqhdmirror/
+            ├─ cover.webp              # 소프트웨어 대표 이미지
+            ├─ shot-01.webp            # 소프트웨어 스크린샷 1
+            ├─ shot-02.webp            # 소프트웨어 스크린샷 2
+            └─ ...                     # shot-06.webp까지
 ```
 
-Run `npm run build` after changing image assets to regenerate the static output. **Uploading a source image into the branch alone does not update the live GitHub Pages site**, which still serves `main` until deployment is authorized.
+**모든 파일을 채울 필요는 없습니다.** 예를 들어 `cover.webp` 하나만 추가해도 해당 작품의 대표 이미지로 사용합니다. `shot-01.webp`, `shot-03.webp`만 있다면 두 장만 번호 순서대로 표시하고 누락된 `shot-02.webp`는 건너뜁니다. 갤러리의 최대 자동 인식 범위는 **01~06번**이며 `shot-07.webp`는 현재 지원하지 않습니다.
 
-## 5. New work later
+## 4. 이미지 제작·내보내기 권장사항
 
-A new approved work gets `content/works/<slug>.md` and `public/images/works/<slug>/cover.webp` plus optional numbered screenshots. Slugs must match `^[a-z0-9]+(?:-[a-z0-9]+)*$`. Only works with `draft: false` are published; explicit user approval is required first.
+- **대표 이미지와 메인 비주얼:** 가운데 80% 정도에 핵심 피사체를 배치합니다. 화면 너비에 따라 가장자리가 잘릴 수 있으므로 중요한 로고나 글자는 가장자리에서 떨어뜨립니다.
+- **가로세로 비율 유지:** 원본을 지정 해상도로 **늘이거나 눌러서 변형하지 말고**, 적절히 크롭하거나 여백을 사용해 내보냅니다. 특히 게임의 세로 스크린샷을 가로 이미지로 억지 변환하지 않습니다.
+- **형식:** 로고는 투명 PNG, 배경·커버·스크린샷은 WebP를 사용합니다. 가능하면 sRGB로 내보냅니다.
+- **파일 크기:** WebP 품질 80~85를 시작점으로 권장합니다. 커버는 약 200~500KB, 스크린샷은 장당 800KB 이하를 목표로 하되 **용량은 권장사항이고 검사기의 필수 조건은 아닙니다.**
+- **공개 적합성:** 배포 권한이 있는 이미지인지 확인하고, 계정 정보·비공개 개발 화면·디버그 로그 등 공개하면 안 되는 정보가 없는지 점검합니다.
+- **원본 작업 파일:** PSD, CLIP, AI 등의 편집 원본은 `public/`에 넣지 않습니다. 해당 폴더에는 최종 웹용 이미지 파일만 둡니다.
 
-## 6. Checklist before publishing media
+현재 지정된 형식 외의 `.jpg`, `.jpeg`, `.avif` 파일은 자동 탐색 대상이 아닙니다. 예를 들어 `Cover.webp`, `cover (1).webp`, `shot-1.webp`도 인식되지 않습니다.
 
-- [ ] Filenames and directories match exactly (lowercase).
-- [ ] Pixel dimensions/aspect ratio match the table.
-- [ ] Copyright and image permissions are confirmed.
-- [ ] No personal information or secret/debug data appears in captures.
-- [ ] Offline content/asset tests pass.
-- [ ] The final built page is inspected on desktop and mobile.
+## 5. 실제 이미지 추가 방법
+
+### 방법 A — Windows 탐색기에서 추가
+
+1. 로컬 저장소의 `public/images/` 폴더를 엽니다.
+2. 위 표에 맞는 하위 폴더에 이미지를 넣습니다. 폴더가 없으면 같은 이름으로 새로 만듭니다.
+3. 내보낸 파일명을 정확하게 변경합니다. 예: Anvil Bastion 대표 이미지는 **`cover.webp`**.
+4. 저장소 루트에서 다음 명령으로 파일 경로와 해상도를 검사합니다.
+
+```powershell
+py scripts/check_phase3_content.py
+```
+
+5. Astro 개발 서버로 화면을 확인합니다. 개발 서버가 이미 실행 중이라도 추가된 파일이 표시되지 않으면 서버를 다시 실행합니다.
+
+```powershell
+npm run dev
+```
+
+6. 배포용 파일을 만들 때는 다시 빌드하고 경로 검사를 실행합니다.
+
+```powershell
+npm run build
+py scripts/check_phase4_source.py --dist
+```
+
+### 방법 B — GitHub 웹사이트에서 직접 추가
+
+1. GitHub 저장소에서 **`gpt/site-redesign-implementation` 브랜치**를 선택합니다.
+2. `public/images/` 아래 해당 폴더로 이동합니다.
+3. **Add file → Upload files**로 규격에 맞는 이미지를 업로드하고 커밋합니다.
+4. 이미지 업로드만으로 GitHub Pages 운영 사이트가 갱신되지는 않습니다. 이후 정적 빌드와 배포가 필요합니다.
+
+파일 업로드 후에는 이미지 작업도 별도의 체크포인트로 커밋합니다. 예시 메시지: `🖼️ assets(site): add Anvil Bastion cover`. 프로젝트 규칙에 따라 **이모지가 포함된 커밋**, PR·유료 CI 없이 진행합니다.
+
+## 6. 자주 발생하는 문제
+
+| 증상 | 확인할 사항 |
+| --- | --- |
+| 이미지를 넣었는데 기본 도형만 보임 | `public/images/` 위치, 소문자 파일명, 확장자, 개발 서버 재시작 여부를 확인 |
+| 검사 스크립트에서 해상도 오류가 발생 | 표의 정확한 가로 × 세로 값으로 다시 내보내기 |
+| Works 카드에서 이미지 가장자리가 잘림 | 카드가 이미지 영역을 채우기 위해 잘라 표시할 수 있음. 주요 피사체를 중앙에 배치 |
+| 스크린샷이 나타나지 않음 | 작품 폴더, `shot-01.webp`~`shot-06.webp` 이름, 해당 작품 상세 페이지 확인 |
+| GitHub에 올렸는데 운영 홈페이지는 그대로임 | 브랜치의 원본 이미지와 실제 배포된 정적 사이트는 별개. 빌드·배포 전에는 정상적인 동작 |
+| 기존 2단계 HTML 와이어프레임에 반영되지 않음 | `docs/wireframes/index.html`은 독립 검토용 파일. 현재 이미지 자동 적용 대상은 **Astro 실제 페이지** |
+
+## 7. 향후 작품 추가 시
+
+새 작품을 공개하기로 승인한 뒤 `content/works/<작품-slug>.md`를 만들고, 동일한 slug로 `public/images/works/<작품-slug>/` 폴더를 구성합니다. slug는 소문자 영문·숫자·하이픈 형식이어야 합니다. 다만 **현재 정확한 파일 규격을 검사하는 스크립트는 Anvil Bastion과 VirtualQHDMirror만 등록**되어 있으므로, 신규 작품을 추가할 때는 이미지 검사 규격도 확장해야 합니다.
+
+## 8. 최종 확인 목록
+
+- [ ] 파일이 `public/images/` 아래 정확한 위치에 있는가?
+- [ ] 이름이 소문자이며 PNG/WebP 확장자가 맞는가?
+- [ ] 지정된 해상도와 가로세로 비율이 맞는가?
+- [ ] 이미지의 공개·사용 권한을 확인했는가?
+- [ ] `py scripts/check_phase3_content.py` 검사에 통과했는가?
+- [ ] `npm run build` 후 실제 페이지에서 확인했는가?
+- [ ] 데스크톱과 모바일에서 중요한 부분이 잘리지 않는가?
+- [ ] 운영 사이트 갱신이 필요한 경우 별도의 배포 승인을 받았는가?
+
+---
+
+**핵심:** 이미지를 **정해진 이름으로 `public/images/`에 추가**하면 Astro 페이지에서 자동으로 찾습니다. 이미지를 추가할 때마다 홈페이지 코드를 수정할 필요는 없습니다. 다만 **파일 검증·빌드·배포**는 별도의 단계입니다.
