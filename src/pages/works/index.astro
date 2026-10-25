@@ -13,8 +13,8 @@ const published = (await getCollection("works", ({ data }) => !data.draft))
       <h1 data-i18n-key="works.heading">{t("works.heading")}</h1>
       <p data-i18n-key="works.intro">{t("works.intro")}</p>
     </header>
-    <div class="controls" aria-label="Work filtering">
-      <div class="filters" role="group" aria-label="Categories">
+    <div class="controls" aria-label={t("a11y.workFiltering")} data-i18n-aria-label="a11y.workFiltering">
+      <div class="filters" role="group" aria-label={t("a11y.categories")} data-i18n-aria-label="a11y.categories">
         <button class="filter" type="button" data-filter="all" aria-pressed="true" data-i18n-key="works.filter.all">{t("works.filter.all")}</button>
         <button class="filter" type="button" data-filter="game" aria-pressed="false" data-i18n-key="works.filter.game">{t("works.filter.game")}</button>
         <button class="filter" type="button" data-filter="software" aria-pressed="false" data-i18n-key="works.filter.software">{t("works.filter.software")}</button>

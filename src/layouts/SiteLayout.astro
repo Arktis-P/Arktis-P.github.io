@@ -27,15 +27,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://arktis-p.gi
     <meta property="og:url" content={canonical} />
   </head>
   <body>
-    <a class="skip-link" href="#content">Skip to content</a>
+    <a class="skip-link" href="#content" data-i18n-key="a11y.skip">{t("a11y.skip")}</a>
     <header class="header"><div class="shell header-inner">
-      <a class="brand" href="/" aria-label="Burning Arktis — Home">
+      <a class="brand" href="/" aria-label={t("a11y.brandHome")} data-i18n-aria-label="a11y.brandHome">
         {brand.wordmark ? <img src={brand.wordmark} alt="Burning Arktis" width="180" height="42" /> : (
           <>{brand.mark ? <img src={brand.mark} alt="" width="34" height="38" /> : <span class="brand-symbol" aria-hidden="true"></span>}
           <span class="brand-letters"><span>BURNING</span><span>ARKTIS</span></span></>
         )}
       </a>
-      <nav class="nav" aria-label="Primary">
+      <nav class="nav" aria-label={t("a11y.primary")} data-i18n-aria-label="a11y.primary">
         <a href="/" aria-current={current === "home" ? "page" : undefined} data-i18n-key="nav.home">{t("nav.home")}</a>
         <a href="/works/" aria-current={current === "works" ? "page" : undefined} data-i18n-key="nav.works">{t("nav.works")}</a>
       </nav>

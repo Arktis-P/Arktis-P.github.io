@@ -28,7 +28,7 @@ const secondary = work.data.links.secondary;
       <div class="detail-cta"><a class="btn btn-primary" href={primary.url} target="_blank" rel="noopener noreferrer">{primary.label} ↗</a></div>
     </div>
     <MediaBlock src={media.cover} altKey={base + ".cover.alt"} className="detail-visual" eager />
-    <section class="detail-body" aria-label="Project details">
+    <section class="detail-body" aria-label={t("a11y.projectDetails")} data-i18n-aria-label="a11y.projectDetails">
       <article>
         <span class="overline" data-i18n-key="detail.overview.eyebrow">{t("detail.overview.eyebrow")}</span>
         <h2 data-i18n-key="detail.overview.title">{t("detail.overview.title")}</h2>
@@ -37,7 +37,7 @@ const secondary = work.data.links.secondary;
           <p data-i18n-key={base + ".p2"}>{t(base + ".p2")}</p>
         </div>
       </article>
-      <aside aria-label="Project information">
+      <aside aria-label={t("a11y.projectInfo")} data-i18n-aria-label="a11y.projectInfo">
         <span class="overline" data-i18n-key="detail.facts.eyebrow">{t("detail.facts.eyebrow")}</span>
         <dl class="fact-list">
           <div><dt data-i18n-key="detail.facts.category">{t("detail.facts.category")}</dt><dd data-i18n-key={categoryKey}>{t(categoryKey)}</dd></div>
@@ -60,7 +60,7 @@ const secondary = work.data.links.secondary;
       </aside>
     </section>
     {media.screenshots.length > 0 && (
-      <section class="detail-gallery" aria-label="Screenshots">
+      <section class="detail-gallery" aria-label={t("a11y.screenshots")} data-i18n-aria-label="a11y.screenshots">
         <span class="overline" data-i18n-key="detail.gallery.eyebrow">{t("detail.gallery.eyebrow")}</span>
         <h2 data-i18n-key="detail.gallery.title">{t("detail.gallery.title")}</h2>
         <div class="gallery-grid">

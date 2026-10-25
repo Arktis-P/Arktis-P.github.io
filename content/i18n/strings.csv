@@ -77,3 +77,12 @@ work.virtualqhdmirror.p1,VirtualQHDMirror provides interactive access to a highe
 work.virtualqhdmirror.p2,"See the GitHub README for system requirements, driver information, releases and setup instructions.","시스템 요구사항, 드라이버 안내, 릴리스 및 설치 방법은 GitHub README에서 확인할 수 있습니다."
 work.virtualqhdmirror.cover.alt,VirtualQHDMirror cover art,VirtualQHDMirror 대표 이미지
 work.virtualqhdmirror.screenshot.alt,VirtualQHDMirror screenshot {number},VirtualQHDMirror 스크린샷 {number}
+a11y.skip,Skip to content,본문으로 건너뛰기
+a11y.brandHome,Burning Arktis — Home,Burning Arktis — 홈
+a11y.primary,Primary navigation,기본 메뉴
+a11y.aboutContact,About and contact,팀 소개와 문의
+a11y.workFiltering,Work filtering,작품 필터
+a11y.categories,Categories,분류 필터
+a11y.projectDetails,Project details,프로젝트 상세
+a11y.projectInfo,Project information,프로젝트 정보
+a11y.screenshots,Screenshots,스크린샷
