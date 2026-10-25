@@ -25,7 +25,9 @@ const secondary = work.data.links.secondary;
         <h1 data-i18n-key={base + ".title"}>{t(base + ".title")}</h1>
         <p class="intro" data-i18n-key={base + ".summary"}>{t(base + ".summary")}</p>
       </div>
-      <div class="detail-cta"><a class="btn btn-primary" href={primary.url} target="_blank" rel="noopener noreferrer">{primary.label} ↗</a></div>
+      <div class="detail-cta"><a class="btn btn-primary" href={primary.url} target="_blank" rel="noopener noreferrer">
+        {primary.label_key ? <span data-i18n-key={primary.label_key}>{t(primary.label_key)}</span> : primary.label} ↗
+      </a></div>
     </div>
     <MediaBlock src={media.cover} altKey={base + ".cover.alt"} className="detail-visual" eager />
     <section class="detail-body" aria-label={t("a11y.projectDetails")} data-i18n-aria-label="a11y.projectDetails">

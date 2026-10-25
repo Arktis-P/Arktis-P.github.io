@@ -14,7 +14,8 @@ const publicUrl = z.string().url().refine((value) => {
 }, "External links must use HTTPS");
 
 const primaryLink = z.object({
-  label: z.enum(["Google Play", "GitHub"]),
+  label: z.enum(["Google Play", "GitHub", "Website"]),
+  label_key: z.string().regex(/^[a-z][A-Za-z0-9]*(?:[._-][A-Za-z0-9]+)*$/).optional(),
   url: publicUrl,
 }).superRefine((link, ctx) => {
   const hostname = new URL(link.url).hostname;
@@ -23,6 +24,12 @@ const primaryLink = z.object({
   }
   if (link.label === "GitHub" && hostname !== "github.com") {
     ctx.addIssue({ code: "custom", message: "GitHub label must point to github.com" });
+  }
+  if (link.label === "Website" && (hostname !== "spriteforge.cc" || new URL(link.url).pathname !== "/")) {
+    ctx.addIssue({ code: "custom", message: "Website link is approved only for https://spriteforge.cc/" });
+  }
+  if (link.label === "Website" && link.label_key !== "work.spriteforge.cta") {
+    ctx.addIssue({ code: "custom", message: "The SpriteForge website CTA must use the EN/KO CSV label" });
   }
 });
 

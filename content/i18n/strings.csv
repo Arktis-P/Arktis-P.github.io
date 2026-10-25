@@ -86,3 +86,12 @@ a11y.categories,Categories,분류 필터
 a11y.projectDetails,Project details,프로젝트 상세
 a11y.projectInfo,Project information,프로젝트 정보
 a11y.screenshots,Screenshots,스크린샷
+work.spriteforge.title,SpriteForge,SpriteForge
+work.spriteforge.summary,"Free browser-based tools for slicing sprites, previewing animation, and preparing game images.",스프라이트 분할과 애니메이션 확인 및 게임 이미지 정리를 돕는 무료 브라우저 도구 모음입니다.
+work.spriteforge.attribution,SpriteForge official website,SpriteForge 공식 웹사이트
+work.spriteforge.platforms,Web browser,웹 브라우저
+work.spriteforge.p1,"SpriteForge brings sprite sheet slicing and building, pivot alignment, animation previews, and image-cleanup tools into your browser.",SpriteForge는 스프라이트 시트 분할·합치기와 피벗 정렬 및 애니메이션 미리보기와 이미지 정리 도구를 브라우저에서 제공합니다.
+work.spriteforge.p2,"Explore tools for palette extraction, color reduction, resizing, format conversion, and pixel-art upscaling. Most image editing runs locally in your browser; tools requiring external services disclose that separately.",팔레트 추출·색상 축소·크기 변경·포맷 변환·픽셀아트 확대 도구도 사용할 수 있습니다. 대부분의 이미지 편집은 브라우저 안에서 처리되며 외부 서비스가 필요한 기능은 사이트에서 별도로 안내합니다.
+work.spriteforge.cover.alt,SpriteForge cover artwork,SpriteForge 대표 이미지
+work.spriteforge.screenshot.alt,SpriteForge screenshot {number},SpriteForge 스크린샷 {number}
+work.spriteforge.cta,Visit Website,사이트 방문
