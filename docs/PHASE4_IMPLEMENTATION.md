@@ -7,15 +7,15 @@
 
 | Route | Astro source | Functional scope |
 | --- | --- | --- |
-| `/` | `src/pages/index.astro` | Editable hero (headline, intro, CTA), selected featured works, Markdown About, Gmail contact |
-| `/works/` | `src/pages/works/index.astro` | Approved Works, editable order, client-side All/Games/Software/Experiments filter; empty state |
+| `/` | `src/pages/index.astro` | CSV-controlled bilingual hero (headline, intro, CTA), selected featured works, CSV-based About, Gmail contact |
+| `/works/` | `src/pages/works/index.astro` | Approved Works, editable order, EN/KO CSV labels, client-side category filter with localized counts and empty state |
 | `/works/anvil-bastion/` | `src/pages/works/[slug]/index.astro` | Game info, **Google Play** primary CTA, policy link, optional images |
 | `/works/virtualqhdmirror/` | Same dynamic Astro detail template | Software info, **GitHub** primary CTA, optional images |
 | `/privacy.html` | `public/privacy.html` | Original policy text with **only** four approved support-email substitutions |
 | `/app-ads.txt` | `public/app-ads.txt` | Exact bytes of production AdMob authorization |
 | `/404.html` | `src/pages/404.astro` | Not-found page, Works link |
 
-Published content is exclusively `content/works/*.md` with `draft: false`. **Other personal projects remain excluded**. Root `index.html`, `privacy.html`, `app-ads.txt` remain untouched in the source branch. Astro ignores the old root `index.html` and builds from `src/pages/index.astro`.
+Published content is exclusively `content/works/*.md` with `draft: false`. Visible copy is in `content/i18n/strings.csv`; route metadata and outbound links remain in Markdown/YAML. **Other personal projects remain excluded**. Root `index.html`, `privacy.html`, `app-ads.txt` remain untouched in the source branch. Astro ignores the old root `index.html` and builds from `src/pages/index.astro`.
 
 Media paths are documented in [ASSET_GUIDE.md](ASSET_GUIDE.md). If a brand visual, cover or screenshot file does not exist, the Astro component displays a CSS text placeholder or skips the gallery. No paid image service, CDN, backend or CMS is required.
 

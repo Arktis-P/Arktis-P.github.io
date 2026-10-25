@@ -1,17 +1,17 @@
 # Phase 3 — Content schema and local media contract
 
 > Working branch: `gpt/site-redesign-implementation` · Review date: 2026-10-25
-> Status: **CONTENT SCHEMA READY**. This is the content-model stage, **not** the full production Astro page implementation.
+> Status: **IMPLEMENTED**. Current visitor-visible EN/KO copy is controlled by CSV; a real local Astro build and visual QA remain separate release gates.
 
 ## Files editors may change
 
 | File | Purpose |
 | --- | --- |
-| `content/home.yml` | Public studio name, hero text, featured work slugs |
-| `content/about.md` | Short, factual studio introduction |
+| `content/home.yml` | Featured work slugs and studio identity metadata |
+| `content/i18n/strings.csv` | All visible EN/KO copy, including Home headline, About, project descriptions and UI labels |
 | `content/contact.yml` | Verified public support email and GitHub links |
-| `content/works/anvil-bastion.md` | Game copy, category, prominence, Google Play link |
-| `content/works/virtualqhdmirror.md` | Software copy, category, GitHub link |
+| `content/works/anvil-bastion.md` | Category, order, publication flags, Google Play link (no visible copy) |
+| `content/works/virtualqhdmirror.md` | Category, order, publication flags, GitHub link (no visible copy) |
 | `public/images/…` | New images, recognized by exact filename (see [Asset Guide](ASSET_GUIDE.md)) |
 
 The content collection schema is in `src/content.config.ts`. Astro's recommended Content Layer API uses `glob()` and `file()` loaders and Zod validation. The software category does not claim studio-issued distribution; its attribution is the verified public Arktis-P repository.
@@ -22,8 +22,8 @@ The content collection schema is in `src/content.config.ts`. Astro's recommended
 - `category` = `game`, `software`, or `experiment`. Header navigation stays Home and Works only.
 - `featured: true` may be shown on Home; `featured_works` in `home.yml` is the editorial ordering list. For initial Home, only Anvil Bastion is featured.
 - `order` is the Works sorting key (lower first, then slug). It is not visible as a public number.
-- Every primary action has a **platform label** and verified HTTPS URL: `Google Play` or `GitHub`.
-- Secondary actions use a site-relative route (e.g. `/privacy.html`) or HTTPS. Public support email comes from `contact.yml`, not copied into each work.
+- Every primary action has a **platform label** and verified HTTPS URL: `Google Play` or `GitHub`. Link text for secondary actions uses a localized `label_key` referring to a CSV translation key.
+- Secondary actions use a site-relative route (e.g. `/privacy.html`) or HTTPS. Public support email comes from `contact.yml`, not copied into each work. Work title, summary, About text and long descriptions are edited **only** in `content/i18n/strings.csv`.
 - File name and frontmatter `slug` must match. No private data, unknown release dates, fake publisher claims or unpublished features.
 - `home.yml` and `contact.yml` are single-element **YAML arrays** with `id: home` and `id: contact`. This is intentional for Astro `file()` loader.
 - If the user later explicitly approves another work, add a Markdown file with the same frontmatter keys and its own verified primary link.
