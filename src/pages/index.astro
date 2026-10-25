@@ -12,13 +12,15 @@ const featured = home.data.featured_works
   .map((slug) => published.find((entry) => entry.data.slug === slug && entry.data.featured))
   .filter((entry) => entry !== undefined);
 const media = getBrandMedia();
+const heroHeadline = t("home.hero.title");
+const heroLastSpace = heroHeadline.lastIndexOf(" ");
 ---
 <SiteLayout titleKey="page.home.title" descriptionKey="page.home.description">
   <div class="shell">
     <section class="hero" aria-labelledby="hero-title">
       <div>
         <span class="eyebrow" data-i18n-key="home.hero.eyebrow">{t("home.hero.eyebrow")}</span>
-        <h1 id="hero-title" data-i18n-key="home.hero.title">{t("home.hero.title")}</h1>
+        <h1 id="hero-title" data-i18n-split="home.hero.title">{heroLastSpace >= 0 ? heroHeadline.slice(0, heroLastSpace) : heroHeadline} {heroLastSpace >= 0 && <em>{heroHeadline.slice(heroLastSpace + 1)}</em>}</h1>
         <p class="lead" data-i18n-key="home.hero.intro">{t("home.hero.intro")}</p>
         <div class="actions">
           <a class="btn btn-primary" href="/works/"><span data-i18n-key="home.hero.cta">{t("home.hero.cta")}</span> →</a>

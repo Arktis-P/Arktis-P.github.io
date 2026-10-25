@@ -26,6 +26,16 @@ const safeJson = JSON.stringify(translations).replace(/</g, String.fromCharCode(
       const key = el.getAttribute("data-i18n-key");
       if (key) el.textContent = tr(key);
     });
+    document.querySelectorAll("[data-i18n-split]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-split");
+      if (!key) return;
+      const value = tr(key);
+      const last = value.lastIndexOf(" ");
+      if (last < 0) { el.textContent = value; return; }
+      const emphasis = document.createElement("em");
+      emphasis.textContent = value.slice(last + 1);
+      el.replaceChildren(document.createTextNode(value.slice(0, last) + " "), emphasis);
+    });
     document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
       const key = el.getAttribute("data-i18n-alt");
       if (!key) return;
