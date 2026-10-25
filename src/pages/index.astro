@@ -1,67 +1,76 @@
 ---
-import { getCollection, getEntry, render } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import MediaBlock from "../components/MediaBlock.astro";
 import { getBrandMedia, getWorkMedia } from "../lib/media";
-
+import { t } from "../lib/i18n";
 const home = await getEntry("home", "home");
 const contact = await getEntry("contact", "contact");
-const about = await getEntry("about", "about");
-if (!home || !contact || !about) throw new Error("Missing required home, contact or about content");
-const { Content: AboutContent } = await render(about);
+if (!home || !contact) throw new Error("Missing home or contact data");
 const published = await getCollection("works", ({ data }) => !data.draft);
 const featured = home.data.featured_works
   .map((slug) => published.find((entry) => entry.data.slug === slug && entry.data.featured))
   .filter((entry) => entry !== undefined);
 const media = getBrandMedia();
-const headlineWords = home.data.headline.trim().split(/\s+/);
-const headlineHighlight = headlineWords.pop() ?? "";
-const headlineLead = headlineWords.join(" ");
 ---
-<SiteLayout title="Home" description={home.data.introduction}>
+<SiteLayout titleKey="page.home.title" descriptionKey="page.home.description">
   <div class="shell">
     <section class="hero" aria-labelledby="hero-title">
       <div>
-        <span class="eyebrow">{home.data.eyebrow}</span>
-        <h1 id="hero-title">{headlineLead} <em>{headlineHighlight}</em></h1>
-        <p class="lead">{home.data.introduction}</p>
-        <div class="actions"><a class="btn btn-primary" href="/works/">{home.data.primary_cta_label} →</a></div>
+        <span class="eyebrow" data-i18n-key="home.hero.eyebrow">{t("home.hero.eyebrow")}</span>
+        <h1 id="hero-title" data-i18n-key="home.hero.title">{t("home.hero.title")}</h1>
+        <p class="lead" data-i18n-key="home.hero.intro">{t("home.hero.intro")}</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/works/"><span data-i18n-key="home.hero.cta">{t("home.hero.cta")}</span> →</a>
+        </div>
       </div>
-      <MediaBlock src={media.hero} alt="Burning Arktis studio showcase artwork" hint="STUDIO VISUAL" className="hero-art" eager />
+      <MediaBlock src={media.hero} altKey="home.hero.alt" hintKey="home.hero.hint" className="hero-art" eager />
     </section>
   </div>
   {featured.length > 0 && (
     <div style="border-top:1px solid var(--line)">
       <section class="shell section" aria-labelledby="featured-title">
         <div class="section-top">
-          <div><span class="overline">Selected work</span><h2 id="featured-title">Featured Project</h2></div>
-          <a class="text-link" href="/works/">All works →</a>
+          <div>
+            <span class="overline" data-i18n-key="home.featured.eyebrow">{t("home.featured.eyebrow")}</span>
+            <h2 id="featured-title" data-i18n-key="home.featured.title">{t("home.featured.title")}</h2>
+          </div>
+          <a class="text-link" href="/works/"><span data-i18n-key="home.featured.all">{t("home.featured.all")}</span> →</a>
         </div>
-        {featured.map((work) => (
-          <article class="featured">
-            <MediaBlock src={getWorkMedia(work.data.slug).cover} alt={work.data.title + " cover art"} hint={work.data.title.toUpperCase()} />
-            <div class="featured-content">
-              <span class="card-category">{work.data.category}</span>
-              <h3>{work.data.title}</h3>
-              <p>{work.data.summary}</p>
-              <a class="btn btn-primary" href={"/works/" + work.data.slug + "/"}>View project →</a>
-            </div>
-          </article>
-        ))}
+        {featured.map((work) => {
+          const key = "work." + work.data.slug;
+          return (
+            <article class="featured">
+              <MediaBlock src={getWorkMedia(work.data.slug).cover} altKey={key + ".cover.alt"} />
+              <div class="featured-content">
+                <span class="card-category" data-i18n-key={"common.category." + work.data.category}>{t("common.category." + work.data.category)}</span>
+                <h3 data-i18n-key={key + ".title"}>{t(key + ".title")}</h3>
+                <p data-i18n-key={key + ".summary"}>{t(key + ".summary")}</p>
+                <a class="btn btn-primary" href={"/works/" + work.data.slug + "/"}>
+                  <span data-i18n-key="home.featured.view">{t("home.featured.view")}</span> →
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </section>
     </div>
   )}
   <div style="border-top:1px solid var(--line)">
     <section class="shell section about-grid" aria-label="About and contact">
       <div class="about-card">
-        <span class="overline">About us</span>
-        <h3>Independent by design.</h3>
-        <div class="prose"><AboutContent /></div>
+        <span class="overline" data-i18n-key="home.about.eyebrow">{t("home.about.eyebrow")}</span>
+        <h3 data-i18n-key="home.about.title">{t("home.about.title")}</h3>
+        <div class="prose">
+          <p data-i18n-key="home.about.p1">{t("home.about.p1")}</p>
+          <p data-i18n-key="home.about.p2">{t("home.about.p2")}</p>
+          <p data-i18n-key="home.about.p3">{t("home.about.p3")}</p>
+        </div>
       </div>
       <div class="about-card">
-        <span class="overline">Contact & support</span>
-        <h3>Get in touch.</h3>
-        <p>Questions about our work or Anvil Bastion? Contact us directly.</p>
+        <span class="overline" data-i18n-key="home.contact.eyebrow">{t("home.contact.eyebrow")}</span>
+        <h3 data-i18n-key="home.contact.title">{t("home.contact.title")}</h3>
+        <p data-i18n-key="home.contact.body">{t("home.contact.body")}</p>
         <a class="text-link" href={"mailto:" + contact.data.email}>{contact.data.email} ↗</a>
       </div>
     </section>

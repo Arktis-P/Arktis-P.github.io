@@ -1,55 +1,58 @@
 ---
-import { getCollection, render, type CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import SiteLayout from "../../../layouts/SiteLayout.astro";
 import MediaBlock from "../../../components/MediaBlock.astro";
 import { getWorkMedia } from "../../../lib/media";
-
+import { t } from "../../../lib/i18n";
 interface Props { work: CollectionEntry<"works">; }
 export async function getStaticPaths() {
   const works = await getCollection("works", ({ data }) => !data.draft);
-  return works.map((work) => ({
-    params: { slug: work.data.slug },
-    props: { work },
-  }));
+  return works.map((work) => ({ params: { slug: work.data.slug }, props: { work } }));
 }
 const { work } = Astro.props;
-const { Content } = await render(work);
 const media = getWorkMedia(work.data.slug);
-const platform = work.data.category === "game" ? "Game" : work.data.category === "software" ? "Software" : "Experiment";
+const base = "work." + work.data.slug;
+const categoryKey = "common.category." + work.data.category;
 const primary = work.data.links.primary;
 const secondary = work.data.links.secondary;
 ---
-<SiteLayout title={work.data.title} description={work.data.summary}>
+<SiteLayout titleKey={base + ".title"} descriptionKey={base + ".summary"}>
   <div class="shell">
-    <a class="detail-back" href="/works/">← Back to Works</a>
+    <a class="detail-back" href="/works/">← <span data-i18n-key="detail.back">{t("detail.back")}</span></a>
     <div class="detail-head">
       <div>
-        <span class="overline">{platform} / Published work</span>
-        <h1>{work.data.title}</h1>
-        <p class="intro">{work.data.summary}</p>
+        <span class="overline"><span data-i18n-key={categoryKey}>{t(categoryKey)}</span> / <span data-i18n-key="detail.published">{t("detail.published")}</span></span>
+        <h1 data-i18n-key={base + ".title"}>{t(base + ".title")}</h1>
+        <p class="intro" data-i18n-key={base + ".summary"}>{t(base + ".summary")}</p>
       </div>
       <div class="detail-cta"><a class="btn btn-primary" href={primary.url} target="_blank" rel="noopener noreferrer">{primary.label} ↗</a></div>
     </div>
-    <MediaBlock src={media.cover} alt={work.data.title + " cover"} hint={work.data.title.toUpperCase()} className="detail-visual" eager />
+    <MediaBlock src={media.cover} altKey={base + ".cover.alt"} className="detail-visual" eager />
     <section class="detail-body" aria-label="Project details">
       <article>
-        <span class="overline">Overview</span>
-        <h2>About this work</h2>
-        <div class="prose"><Content /></div>
+        <span class="overline" data-i18n-key="detail.overview.eyebrow">{t("detail.overview.eyebrow")}</span>
+        <h2 data-i18n-key="detail.overview.title">{t("detail.overview.title")}</h2>
+        <div class="prose">
+          <p data-i18n-key={base + ".p1"}>{t(base + ".p1")}</p>
+          <p data-i18n-key={base + ".p2"}>{t(base + ".p2")}</p>
+        </div>
       </article>
       <aside aria-label="Project information">
-        <span class="overline">Project facts</span>
+        <span class="overline" data-i18n-key="detail.facts.eyebrow">{t("detail.facts.eyebrow")}</span>
         <dl class="fact-list">
-          <div><dt>Category</dt><dd>{platform}</dd></div>
-          <div><dt>Attribution</dt><dd>{work.data.attribution}</dd></div>
-          <div><dt>Platform</dt><dd>{work.data.platforms.join(", ")}</dd></div>
+          <div><dt data-i18n-key="detail.facts.category">{t("detail.facts.category")}</dt><dd data-i18n-key={categoryKey}>{t(categoryKey)}</dd></div>
+          <div><dt data-i18n-key="detail.facts.attribution">{t("detail.facts.attribution")}</dt><dd data-i18n-key={base + ".attribution"}>{t(base + ".attribution")}</dd></div>
+          <div><dt data-i18n-key="detail.facts.platform">{t("detail.facts.platform")}</dt><dd data-i18n-key={base + ".platforms"}>{t(base + ".platforms")}</dd></div>
         </dl>
         {secondary.length > 0 && (
           <>
-            <p class="overline" style="margin-top:29px">Related links</p>
+            <p class="overline" style="margin-top:29px" data-i18n-key="detail.related">{t("detail.related")}</p>
             <div class="related-links">
               {secondary.map((link) => (
-                <a class="btn btn-outline" href={link.url} target={link.url.startsWith("https:") ? "_blank" : undefined} rel={link.url.startsWith("https:") ? "noopener noreferrer" : undefined}>{link.label} ↗</a>
+                <a class="btn btn-outline" href={link.url} target={link.url.startsWith("https:") ? "_blank" : undefined}
+                   rel={link.url.startsWith("https:") ? "noopener noreferrer" : undefined}>
+                  <span data-i18n-key={link.label_key}>{t(link.label_key)}</span> ↗
+                </a>
               ))}
             </div>
           </>
@@ -58,10 +61,11 @@ const secondary = work.data.links.secondary;
     </section>
     {media.screenshots.length > 0 && (
       <section class="detail-gallery" aria-label="Screenshots">
-        <span class="overline">Gallery</span>
-        <h2>Screenshots</h2>
+        <span class="overline" data-i18n-key="detail.gallery.eyebrow">{t("detail.gallery.eyebrow")}</span>
+        <h2 data-i18n-key="detail.gallery.title">{t("detail.gallery.title")}</h2>
         <div class="gallery-grid">
-          {media.screenshots.map((src, index) => <img src={src} alt={work.data.title + " screenshot " + (index + 1)} loading="lazy" decoding="async" />)}
+          {media.screenshots.map((src, index) => <img src={src} alt={t(base + ".screenshot.alt").replace("{number}", String(index + 1))}
+             data-i18n-alt={base + ".screenshot.alt"} data-i18n-number={index + 1} loading="lazy" decoding="async" />)}
         </div>
       </section>
     )}
