@@ -55,7 +55,7 @@ def main() -> int:
     for name, source in files.items():
         for regex in (
             r'\bt\("([a-z0-9._-]+)"\)',
-            r'\bdata-i18n-(?:key|alt|aria-label)="([a-z0-9._-]+)"',
+            r'\bdata-i18n-(?:key|split|alt|aria-label)="([a-z0-9._-]+)"',
             r'\b(?:titleKey|descriptionKey)="([a-z0-9._-]+)"',
         ):
             required.update(re.findall(regex, source))
