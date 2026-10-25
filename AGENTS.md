@@ -35,3 +35,8 @@ These rules apply to all work in this repository. Read this file before editing.
 - Preserve the same-page EN/KO switch, `data-i18n-key` references and language persistence; do not create language-specific routes without approval.
 - Run `python scripts/check_i18n_content.py` after changing user-visible text.
 - Color tokens are derived from the team flame logo. Favor high-contrast neutral content surfaces; accent red is for restrained emphasis.
+
+## Per-language inline text colors
+- CSV supports `[[accent|text]]`, `[[ink|text]]`, `[[muted|text]]`, or readable `[[#RRGGBB|text]]`, independently in each language; never infer which words should be highlighted by their position.
+- Preserve user-authored CSV copy except explicitly requested edits; validate each language and do not render user strings via `innerHTML`.
+- Custom HEX inline text colors must meet at least WCAG 4.5:1 against the site background; the Python checker and build-time loader reject malformed or unreadable formatting.
