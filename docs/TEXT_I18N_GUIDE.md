@@ -88,3 +88,7 @@ npm run dev
 Home 및 두 Works 상세 페이지를 확인합니다. 영어에서 한국어로 전환 → 작품 상세 이동 → 새로고침 → 영어 복귀 → 모바일 너비에서 긴 국문 문구가 잘리지 않는지 검사합니다.
 
 **비용 정책:** 별도의 번역 API, 서버, DB, 유료 서비스, GitHub Actions나 PR은 필요하지 않습니다. **CSV 수정 후에는 정적 빌드를 다시 실행**해야 하며, 소스 브랜치 편집만으로 공개 Pages가 바뀌지 않습니다.
+
+## SpriteForge 문구 추가 (2026-10-25)
+
+`work.spriteforge.*` 키가 추가됐습니다. 작품명·요약·상세 소개·이미지 대체 텍스트·`work.spriteforge.cta`(영어 **Visit Website**, 한국어 **사이트 방문**)는 모두 CSV에서 수정할 수 있습니다. 배포 대상 URL은 작품 메타데이터 `content/works/spriteforge.md`의 `https://spriteforge.cc/`입니다. 소스 저장소가 비공개이므로 GitHub 소스 링크를 공개하지 않습니다.

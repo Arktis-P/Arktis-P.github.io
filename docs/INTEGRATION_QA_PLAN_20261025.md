@@ -135,3 +135,16 @@ npm run preview
 - `nav.works` 한국어 **프로젝트**, `works.heading` **작업 소개**, `work.anvil-bastion.title` **앤빌 바스티온**은 사용자가 CSV에서 편집한 값이므로 그대로 유지함.
 - `home.about.p2`에서 `<팀 버닝 알크티스>`는 **서식이 아닌 문자 그대로** 표시될 예정. 괄호 표현이 의도한 것인지 화면 확인.
 - 기존 원본 로고는 `public/images/original/`에 있어 헤더 자동 표시에는 사용되지 않음. 의도한 팀 로고를 표시하려면 [이미지 규격 문서](ASSET_GUIDE.md)에 따라 정식 경로로 별도 저장.
+
+## 변경사항: SpriteForge 3번째 작품 추가 (2026-10-25)
+
+**기존 QA 계획의 작품 2개 기준은 추가 당시의 기록입니다.** 현재 승인된 사이트 목록은 Anvil Bastion / VirtualQHDMirror / SpriteForge 3개이며, SpriteForge는 Software 분류입니다. 위의 "Games 1 / Software 1" 기준을 **"Games 1 / Software 2 / Experiments 0 / All 3"**으로 대체합니다.
+
+- 공식 서비스 주소: `https://spriteforge.cc/`. 공식 README에 주소가 기재되어 있으며 실제 서비스 접속을 확인했습니다.
+- 소스 저장소 `Arktis-P/project-money-tools`는 **비공개**이므로 공개 홈페이지에 저장소 GitHub 링크를 넣지 않았습니다.
+- 새 상세 페이지: `/works/spriteforge/`. **사이트 방문 / Visit Website** CTA는 `https://spriteforge.cc/`를 새 탭에서 열어야 합니다.
+- Software 필터에서 VirtualQHDMirror와 SpriteForge 두 카드가 보이고, All은 3개가 표시되어야 합니다.
+- SpriteForge의 영문/국문 소개·대표 이미지 대체 텍스트·버튼이 `strings.csv`의 `work.spriteforge.*` 키에서 전환되어야 합니다.
+- `public/images/works/spriteforge/cover.webp` 및 `shot-01.webp`~`shot-06.webp`는 선택 사항이며 규격은 [ASSET_GUIDE.md](ASSET_GUIDE.md) 참조.
+- 정적 빌드 후 `dist/works/spriteforge/index.html` 생성과 내부 링크, 기존 `privacy.html`·`app-ads.txt` 보존 확인.
+- **사용자 최종 확인:** 새 Works 카드, KO/EN 전환, 외부 사이트 링크 및 모바일 잘림 여부. 기존 통합 QA 완료 확인은 유지합니다.

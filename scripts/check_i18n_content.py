@@ -18,7 +18,7 @@ FILES = [
     "src/pages/works/[slug]/index.astro",
     "src/pages/404.astro",
 ]
-WORKS = ["anvil-bastion", "virtualqhdmirror"]
+WORKS = ["anvil-bastion", "virtualqhdmirror", "spriteforge"]
 TRANSLATION_KEY_RE = re.compile(r"[a-z][A-Za-z0-9]*(?:[._-][A-Za-z0-9]+)*")
 
 REQUIRED_PARTS = [

@@ -61,3 +61,7 @@ The `src/pages/` templates and `src/components/` views are now connected to thes
 - 기존 `content/about.md`는 삭제됐고, `content/home.yml`과 `content/works/*.md`에는 공개 여부와 분류·순서·링크 등 **구조 데이터**만 남겼습니다.
 - 기본 URL 하나에서 언어 전환이 이뤄지며, 선택 내용은 브라우저 저장소에 보존됩니다.
 - 관리 예시 및 QA 방법: [TEXT_I18N_GUIDE.md](TEXT_I18N_GUIDE.md).
+
+## Approved third project: SpriteForge
+
+SpriteForge (`https://spriteforge.cc/`) is an approved public portfolio entry in category `software`, with slug `spriteforge` and an external **Website** CTA. Its source repo `Arktis-P/project-money-tools` is **private** and must not be linked from the public site. EN/KO copy and the CTA label live in `content/i18n/strings.csv`; frontmatter lives in `content/works/spriteforge.md`. Image filenames are documented in [ASSET_GUIDE.md](ASSET_GUIDE.md).

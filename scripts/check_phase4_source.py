@@ -14,12 +14,14 @@ EXPECTED_PAGES = [
     "works/index.html",
     "works/anvil-bastion/index.html",
     "works/virtualqhdmirror/index.html",
+    "works/spriteforge/index.html",
     "404.html",
     "privacy.html",
     "app-ads.txt",
 ]
 PLAY = "https://play.google.com/store/apps/details?id=com.burningarktis.anvilbastion"
 GITHUB = "https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md"
+SPRITEFORGE = "https://spriteforge.cc/"
 MAIL = "burningarktis@gmail.com"
 
 class Links(HTMLParser):
@@ -66,10 +68,10 @@ def main() -> int:
     config = (ROOT / "astro.config.mjs").read_text(encoding="utf-8")
     css = (ROOT / "src/styles/global.css").read_text(encoding="utf-8")
     works = list((ROOT / "content/works").glob("*.md"))
-    approved = {"anvil-bastion.md", "virtualqhdmirror.md"}
+    approved = {"anvil-bastion.md", "virtualqhdmirror.md", "spriteforge.md"}
 
     check({p.name for p in works if "draft: false" in p.read_text(encoding="utf-8")} == approved,
-          "only the two approved works are public")
+          "only the three approved works are public")
     check('getCollection("works", ({ data }) => !data.draft)' in listing
           and 'getCollection("works", ({ data }) => !data.draft)' in detail,
           "draft entries excluded from lists and detail routes")
@@ -104,6 +106,9 @@ def main() -> int:
     check(PLAY in (ROOT / "content/works/anvil-bastion.md").read_text(encoding="utf-8")
           and GITHUB in (ROOT / "content/works/virtualqhdmirror.md").read_text(encoding="utf-8"),
           "approved store and GitHub primary URLs in metadata")
+    check(SPRITEFORGE in (ROOT / "content/works/spriteforge.md").read_text(encoding="utf-8")
+          and "label_key: work.spriteforge.cta" in (ROOT / "content/works/spriteforge.md").read_text(encoding="utf-8"),
+          "SpriteForge official URL and EN/KO CTA label verified")
 
     if args.dist:
         dist = ROOT / "dist"
@@ -118,8 +123,13 @@ def main() -> int:
                       "built game detail links to Google Play")
                 check(GITHUB in rendered["works/virtualqhdmirror/index.html"],
                       "built software detail links to GitHub")
+                check(SPRITEFORGE in rendered["works/spriteforge/index.html"],
+                      "built SpriteForge detail links to official site")
+                check("Visit Website" in rendered["works/spriteforge/index.html"],
+                      "built SpriteForge English website CTA present")
                 check("Anvil Bastion" in rendered["works/index.html"]
                       and "VirtualQHDMirror" in rendered["works/index.html"]
+                      and "SpriteForge" in rendered["works/index.html"]
                       and "SpartaPixelVerse" not in rendered["works/index.html"],
                       "built Works list matches approved scope")
                 check(MAIL in rendered["index.html"] and MAIL in rendered["privacy.html"],

@@ -12,6 +12,7 @@ VALID_SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 GMAIL = "burningarktis@gmail.com"
 GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.burningarktis.anvilbastion"
 GITHUB = "https://github.com/Arktis-P/VirtualQHDMirror/blob/main/README.md"
+SPRITEFORGE = "https://spriteforge.cc/"
 
 # Exact accepted names and dimensions; screenshots are individually optional.
 DIMENSIONS: dict[str, tuple[int, int]] = {
@@ -20,10 +21,12 @@ DIMENSIONS: dict[str, tuple[int, int]] = {
     "brand/hero.webp": (1920, 1080),
     "works/anvil-bastion/cover.webp": (1280, 720),
     "works/virtualqhdmirror/cover.webp": (1280, 720),
+    "works/spriteforge/cover.webp": (1280, 720),
 }
 for number in range(1, 7):
     DIMENSIONS[f"works/anvil-bastion/shot-{number:02}.webp"] = (1080, 1920)
     DIMENSIONS[f"works/virtualqhdmirror/shot-{number:02}.webp"] = (1600, 900)
+    DIMENSIONS[f"works/spriteforge/shot-{number:02}.webp"] = (1600, 900)
 
 
 def image_size(path: Path) -> tuple[int, int] | None:
@@ -79,6 +82,7 @@ def main() -> int:
     expected = {
         "anvil-bastion": ("game", "Google Play", GOOGLE_PLAY),
         "virtualqhdmirror": ("software", "GitHub", GITHUB),
+        "spriteforge": ("software", "Website", SPRITEFORGE),
     }
     found: set[str] = set()
     for path in sorted(WORKS.glob("*.md")):
@@ -110,6 +114,8 @@ def main() -> int:
 
     if "label_key: footer.privacy" not in (WORKS / "anvil-bastion.md").read_text(encoding="utf-8"):
         errors.append("privacy link must use localized label_key")
+    if "label_key: work.spriteforge.cta" not in (WORKS / "spriteforge.md").read_text(encoding="utf-8"):
+        errors.append("SpriteForge external link must use localized CTA")
 
     for relative, expected_size in DIMENSIONS.items():
         filename = ROOT / "public/images" / relative
@@ -149,7 +155,7 @@ def main() -> int:
             print("[FAIL]", err)
         print(f"Phase 3: {len(errors)} failure(s).")
         return 1
-    print("[PASS] approved 2-work content contract and verified Gmail contact")
+    print("[PASS] approved 3-work content contract and verified Gmail contact")
     print("[PASS] image paths/dimensions valid for all currently supplied assets (optional absent files allowed)")
     print("[PASS] Astro content schema and local media lookup sources present")
     print("[NOTE] Python check is not an Astro compiler/build; run npm build after Phase 4.")

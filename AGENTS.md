@@ -27,7 +27,7 @@ These rules apply to all work in this repository. Read this file before editing.
 
 ## Approved project decisions (2026-10)
 - The new site and its draft content use **burningarktis@gmail.com**, verified on Google Play; Proton Mail is legacy only. A legal-policy contact-only replacement must be reviewed before the published site switches over. Avoid modifying the existing privacy policy before that release gate.
-- The only currently approved public Works are **Anvil Bastion** and **VirtualQHDMirror**. No other repositories are automatically featured.
+- Approved public Works: **Anvil Bastion**, **VirtualQHDMirror**, and **SpriteForge** (`https://spriteforge.cc/`). The SpriteForge source repository `Arktis-P/project-money-tools` is **private**; never publish its source URL, internal implementation details, or files as public downloads. No other repositories are automatically featured.
 - New site assets follow `docs/ASSET_GUIDE.md`; code must recognize fixed filenames automatically, tolerate missing images, and never require paid hosting.
 
 ## Content and localization (2026-10-25)

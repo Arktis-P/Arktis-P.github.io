@@ -43,6 +43,15 @@ Anvil Bastion은 모바일 게임이므로 게임 플레이 스크린샷은 세�
 
 VirtualQHDMirror는 Windows 소프트웨어이므로 스크린샷은 가로형 16:9를 기준으로 합니다.
 
+### 2-4. SpriteForge
+
+| 용도 | 정확한 파일 경로 | 해상도 | 파일 형식 |
+| --- | --- | --- | --- |
+| Works 카드 및 SpriteForge 상세 대표 이미지 | `public/images/works/spriteforge/cover.webp` | **1280 × 720 px** (16:9) | WebP |
+| 서비스 화면 스크린샷 1~6 | `public/images/works/spriteforge/shot-01.webp` ~ `shot-06.webp` | **1600 × 900 px** (16:9 가로형) | WebP |
+
+SpriteForge는 웹 브라우저 기반 이미지 도구이므로 실제 서비스 화면을 캡처해 올리면 됩니다. 이미지를 넣지 않아도 카드와 상세 페이지는 기본 CSS 대체 이미지를 표시합니다. 별도의 `project-money-tools` 저장소 이미지를 복사할 필요는 없으며 해당 저장소는 비공개로 유지합니다.
+
 ## 3. 폴더 구조 예시
 
 ```text
@@ -63,6 +72,10 @@ Arktis-P.github.io/
             ├─ cover.webp              # 소프트웨어 대표 이미지
             ├─ shot-01.webp            # 소프트웨어 스크린샷 1
             ├─ shot-02.webp            # 소프트웨어 스크린샷 2
+            └─ ...                     # shot-06.webp까지
+         └─ spriteforge/
+            ├─ cover.webp              # 서비스 대표 이미지
+            ├─ shot-01.webp            # 웹 도구 스크린샷 1
             └─ ...                     # shot-06.webp까지
 ```
 
