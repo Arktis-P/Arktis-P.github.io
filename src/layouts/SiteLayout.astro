@@ -1,10 +1,11 @@
 ---
 import { getEntry } from "astro:content";
 import { getBrandMedia } from "../lib/media";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
+import { t } from "../lib/i18n";
 import "../styles/global.css";
-
-interface Props { title: string; description: string; }
-const { title, description } = Astro.props;
+interface Props { titleKey: string; descriptionKey: string; }
+const { titleKey, descriptionKey } = Astro.props;
 const contact = await getEntry("contact", "contact");
 if (!contact) throw new Error("Missing public contact record");
 const brand = getBrandMedia();
@@ -16,13 +17,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://arktis-p.gi
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0a0e13" />
-    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0c0d10" />
+    <meta name="description" content={t(descriptionKey)} data-i18n-description={descriptionKey} />
     <link rel="canonical" href={canonical} />
-    <title>{title} | Burning Arktis</title>
+    <title data-i18n-title={titleKey}>{t(titleKey)} | Burning Arktis</title>
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title + " | Burning Arktis"} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={t(titleKey) + " | Burning Arktis"} />
+    <meta property="og:description" content={t(descriptionKey)} />
     <meta property="og:url" content={canonical} />
   </head>
   <body>
@@ -35,17 +36,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://arktis-p.gi
         )}
       </a>
       <nav class="nav" aria-label="Primary">
-        <a href="/" aria-current={current === "home" ? "page" : undefined}>Home</a>
-        <a href="/works/" aria-current={current === "works" ? "page" : undefined}>Works</a>
+        <a href="/" aria-current={current === "home" ? "page" : undefined} data-i18n-key="nav.home">{t("nav.home")}</a>
+        <a href="/works/" aria-current={current === "works" ? "page" : undefined} data-i18n-key="nav.works">{t("nav.works")}</a>
       </nav>
+      <LanguageSwitcher />
     </div></header>
     <main id="content"><slot /></main>
     <footer class="footer"><div class="shell footer-row">
       <span>© {new Date().getFullYear()} Burning Arktis</span>
       <div class="footer-links">
-        <a href={contact.data.privacy_url}>Privacy Policy</a>
-        <a href={"mailto:" + contact.data.email}>Contact</a>
-        <a href={contact.data.github_url} target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href={contact.data.privacy_url} data-i18n-key="footer.privacy">{t("footer.privacy")}</a>
+        <a href={"mailto:" + contact.data.email} data-i18n-key="footer.contact">{t("footer.contact")}</a>
+        <a href={contact.data.github_url} target="_blank" rel="noopener noreferrer" data-i18n-key="footer.github">{t("footer.github")}</a>
       </div>
     </div></footer>
   </body>

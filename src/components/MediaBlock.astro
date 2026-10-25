@@ -1,10 +1,13 @@
 ---
-interface Props { src: string | null; alt: string; hint?: string; className?: string; eager?: boolean; }
-const { src, alt, hint = "IMAGE PENDING", className = "", eager = false } = Astro.props;
+import { t } from "../lib/i18n";
+interface Props { src: string | null; altKey: string; hintKey?: string; className?: string; eager?: boolean; }
+const { src, altKey, hintKey = "common.image.pending", className = "", eager = false } = Astro.props;
 ---
 <div class={"visual " + className}>
-  {src ? <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} decoding="async" /> : (
-    <><span class="visual-label">BURNING ARKTIS / ARTWORK SLOT</span>
-    <span class="visual-foot"><span>{hint}</span><span>BA / STUDIO</span></span></>
+  {src ? <img src={src} alt={t(altKey)} data-i18n-alt={altKey} loading={eager ? "eager" : "lazy"} decoding="async" /> : (
+    <>
+      <span class="visual-label" data-i18n-key="common.image.slot">{t("common.image.slot")}</span>
+      <span class="visual-foot"><span data-i18n-key={hintKey}>{t(hintKey)}</span><span data-i18n-key="common.image.studio">{t("common.image.studio")}</span></span>
+    </>
   )}
 </div>

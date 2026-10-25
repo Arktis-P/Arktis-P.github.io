@@ -2,21 +2,22 @@
 import type { CollectionEntry } from "astro:content";
 import MediaBlock from "./MediaBlock.astro";
 import { getWorkMedia } from "../lib/media";
-
+import { t } from "../lib/i18n";
 interface Props { work: CollectionEntry<"works">; }
 const { work } = Astro.props;
 const { data } = work;
 const media = getWorkMedia(data.slug);
-const categoryText = data.category === "game" ? "Game" : data.category === "software" ? "Software" : "Experiment";
+const base = "work." + data.slug;
+const categoryKey = "common.category." + data.category;
 ---
 <article class="card" data-category={data.category}>
-  <a class="card-media" href={"/works/" + data.slug + "/"} aria-label={"View " + data.title + " details"}>
-    <MediaBlock src={media.cover} alt={data.title + " cover"} hint={data.title.toUpperCase()} />
+  <a class="card-media" href={"/works/" + data.slug + "/"}>
+    <MediaBlock src={media.cover} altKey={base + ".cover.alt"} hintKey="common.image.pending" />
   </a>
   <div class="card-body">
-    <span class="card-category">{categoryText}</span>
-    <h2><a href={"/works/" + data.slug + "/"}>{data.title}</a></h2>
-    <p>{data.summary}</p>
-    <a class="card-link" href={"/works/" + data.slug + "/"}>View details →</a>
+    <span class="card-category" data-i18n-key={categoryKey}>{t(categoryKey)}</span>
+    <h2><a href={"/works/" + data.slug + "/"} data-i18n-key={base + ".title"}>{t(base + ".title")}</a></h2>
+    <p data-i18n-key={base + ".summary"}>{t(base + ".summary")}</p>
+    <a class="card-link" href={"/works/" + data.slug + "/"}><span data-i18n-key="works.card.view">{t("works.card.view")}</span> →</a>
   </div>
 </article>

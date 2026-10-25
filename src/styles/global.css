@@ -128,3 +128,11 @@ h1{font-size:clamp(2.9rem,6.6vw,6.3rem)} h2{font-size:clamp(2rem,4vw,3.5rem)}
 .brand-letters span:last-child{color:var(--ink)}
 .work-grid .card h2 a:hover{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:5px}
 .footer a,.card h2 a{transition:color .15s ease}
+
+/* EN/KO controls: readable with the brand-red accent and flexible on small phones. */
+.language-switch{display:inline-flex;align-items:center;gap:3px;padding:4px;border:1px solid var(--line);background:var(--surface);flex:none}
+.language-switch button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:.78rem;line-height:1.2;font-weight:800;min-height:37px;padding:8px 11px;white-space:nowrap}
+.language-switch button[aria-pressed="true"]{color:#100c0b;background:var(--accent);border-color:var(--accent)}
+.language-switch button:hover:not([aria-pressed="true"]){color:var(--ink);border-color:var(--line)}
+@media(max-width:640px){.header-inner{flex-wrap:wrap;padding-block:10px;gap:8px}.nav{margin-left:auto}.language-switch{margin-left:auto}}
+@media(max-width:390px){.brand{font-size:.65rem}.nav a{padding-inline:8px}.language-switch button{padding-inline:9px;font-size:.72rem}}
