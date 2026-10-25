@@ -79,4 +79,4 @@ py scripts/check_i18n_content.py
 
 ## SpriteForge portfolio entry
 
-SpriteForge (`https://spriteforge.cc/`) is included as a third published work in the **Software** category, linking to the live service rather than its private `project-money-tools` source repository. Its text is in `content/i18n/strings.csv`; its optional images are documented in `docs/ASSET_GUIDE.md`. The new detail route is `/works/spriteforge/`.
+SpriteForge (`https://spriteforge.cc/`) is included as a third published work in the **Software** category, linking to the live service rather than its private 비공개 소스 저장소 source repository. Its text is in `content/i18n/strings.csv`; its optional images are documented in `docs/ASSET_GUIDE.md`. The new detail route is `/works/spriteforge/`.

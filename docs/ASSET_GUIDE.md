@@ -50,7 +50,7 @@ VirtualQHDMirror는 Windows 소프트웨어이므로 스크린샷은 가로형 1
 | Works 카드 및 SpriteForge 상세 대표 이미지 | `public/images/works/spriteforge/cover.webp` | **1280 × 720 px** (16:9) | WebP |
 | 서비스 화면 스크린샷 1~6 | `public/images/works/spriteforge/shot-01.webp` ~ `shot-06.webp` | **1600 × 900 px** (16:9 가로형) | WebP |
 
-SpriteForge는 웹 브라우저 기반 이미지 도구이므로 실제 서비스 화면을 캡처해 올리면 됩니다. 이미지를 넣지 않아도 카드와 상세 페이지는 기본 CSS 대체 이미지를 표시합니다. 별도의 `project-money-tools` 저장소 이미지를 복사할 필요는 없으며 해당 저장소는 비공개로 유지합니다.
+SpriteForge는 웹 브라우저 기반 이미지 도구이므로 실제 서비스 화면을 캡처해 올리면 됩니다. 이미지를 넣지 않아도 카드와 상세 페이지는 기본 CSS 대체 이미지를 표시합니다. 별도의 비공개 소스 저장소 저장소 이미지를 복사할 필요는 없으며 해당 저장소는 비공개로 유지합니다.
 
 ## 3. 폴더 구조 예시
 

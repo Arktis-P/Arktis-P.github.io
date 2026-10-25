@@ -141,7 +141,7 @@ npm run preview
 **기존 QA 계획의 작품 2개 기준은 추가 당시의 기록입니다.** 현재 승인된 사이트 목록은 Anvil Bastion / VirtualQHDMirror / SpriteForge 3개이며, SpriteForge는 Software 분류입니다. 위의 "Games 1 / Software 1" 기준을 **"Games 1 / Software 2 / Experiments 0 / All 3"**으로 대체합니다.
 
 - 공식 서비스 주소: `https://spriteforge.cc/`. 공식 README에 주소가 기재되어 있으며 실제 서비스 접속을 확인했습니다.
-- 소스 저장소 `Arktis-P/project-money-tools`는 **비공개**이므로 공개 홈페이지에 저장소 GitHub 링크를 넣지 않았습니다.
+- 소스 저장소 비공개 소스 저장소는 **비공개**이므로 공개 홈페이지에 저장소 GitHub 링크를 넣지 않았습니다.
 - 새 상세 페이지: `/works/spriteforge/`. **사이트 방문 / Visit Website** CTA는 `https://spriteforge.cc/`를 새 탭에서 열어야 합니다.
 - Software 필터에서 VirtualQHDMirror와 SpriteForge 두 카드가 보이고, All은 3개가 표시되어야 합니다.
 - SpriteForge의 영문/국문 소개·대표 이미지 대체 텍스트·버튼이 `strings.csv`의 `work.spriteforge.*` 키에서 전환되어야 합니다.

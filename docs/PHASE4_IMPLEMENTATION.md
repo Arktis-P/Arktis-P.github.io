@@ -87,6 +87,6 @@ At authoring time, the GitHub connector can write and read the code, and static 
 ## Third published work: SpriteForge (2026-10-25)
 
 - `/works/spriteforge/` is generated from `content/works/spriteforge.md` and `work.spriteforge.*` EN/KO CSV translations.
-- This **Software** work links to the official live website only (`https://spriteforge.cc/`); the connected `Arktis-P/project-money-tools` GitHub repository is private and is not a public CTA.
+- This **Software** work links to the official live website only (`https://spriteforge.cc/`); the connected 비공개 소스 저장소 GitHub repository is private and is not a public CTA.
 - The Works filter expectations are now **All: 3, Games: 1, Software: 2, Experiments: 0**. Older two-work QA reports represent their historical checkpoint, not the new acceptance scope.
 - Include the SpriteForge detail route and Visit Website CTA in local build and mobile QA. Production remains unchanged until explicit approval.

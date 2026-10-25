@@ -64,4 +64,4 @@ The `src/pages/` templates and `src/components/` views are now connected to thes
 
 ## Approved third project: SpriteForge
 
-SpriteForge (`https://spriteforge.cc/`) is an approved public portfolio entry in category `software`, with slug `spriteforge` and an external **Website** CTA. Its source repo `Arktis-P/project-money-tools` is **private** and must not be linked from the public site. EN/KO copy and the CTA label live in `content/i18n/strings.csv`; frontmatter lives in `content/works/spriteforge.md`. Image filenames are documented in [ASSET_GUIDE.md](ASSET_GUIDE.md).
+SpriteForge (`https://spriteforge.cc/`) is an approved public portfolio entry in category `software`, with slug `spriteforge` and an external **Website** CTA. Its source repo 비공개 소스 저장소 is **private** and must not be linked from the public site. EN/KO copy and the CTA label live in `content/i18n/strings.csv`; frontmatter lives in `content/works/spriteforge.md`. Image filenames are documented in [ASSET_GUIDE.md](ASSET_GUIDE.md).
