@@ -17,8 +17,7 @@ const heroHeadlineParts = richParts("home.hero.title");
 <SiteLayout titleKey="page.home.title" descriptionKey="page.home.description">
   <div class="shell">
     <section class="hero" aria-labelledby="hero-title">
-      <div>
-        <span class="eyebrow" data-i18n-key="home.hero.eyebrow">{t("home.hero.eyebrow")}</span>
+      <div class="hero-copy">
         <h1 id="hero-title" data-i18n-rich="home.hero.title">
           {heroHeadlineParts.map((part) =>
             part.color ? (
@@ -29,33 +28,37 @@ const heroHeadlineParts = richParts("home.hero.title");
         </h1>
         <p class="lead" data-i18n-key="home.hero.intro">{t("home.hero.intro")}</p>
         <div class="actions">
-          <a class="btn btn-primary" href="/works/"><span data-i18n-key="home.hero.cta">{t("home.hero.cta")}</span> →</a>
+          <a class="btn btn-primary" href="/works/"><span data-i18n-key="home.hero.cta">{t("home.hero.cta")}</span> <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
-      <MediaBlock src={media.hero} altKey="home.hero.alt" hintKey="home.hero.hint" className="hero-art" eager />
+      <div class="hero-stage">
+        <MediaBlock src={media.hero} altKey="home.hero.alt" hintKey="home.hero.hint" className="hero-art" eager />
+      </div>
     </section>
   </div>
   {featured.length > 0 && (
-    <div style="border-top:1px solid var(--line)">
+    <div class="band">
       <section class="shell section" aria-labelledby="featured-title">
         <div class="section-top">
-          <div>
-            <span class="overline" data-i18n-key="home.featured.eyebrow">{t("home.featured.eyebrow")}</span>
+          <div class="section-heading">
+            <span class="index-tag" aria-hidden="true">01</span>
             <h2 id="featured-title" data-i18n-key="home.featured.title">{t("home.featured.title")}</h2>
           </div>
-          <a class="text-link" href="/works/"><span data-i18n-key="home.featured.all">{t("home.featured.all")}</span> →</a>
+          <a class="text-link" href="/works/"><span data-i18n-key="home.featured.all">{t("home.featured.all")}</span> <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         {featured.map((work) => {
           const key = "work." + work.data.slug;
           return (
             <article class="featured">
-              <MediaBlock src={getWorkMedia(work.data.slug).cover} altKey={key + ".cover.alt"} />
+              <a class="featured-media" href={"/works/" + work.data.slug + "/"} tabindex="-1" aria-hidden="true">
+                <MediaBlock src={getWorkMedia(work.data.slug).cover} altKey={key + ".cover.alt"} />
+              </a>
               <div class="featured-content">
-                <span class="card-category" data-i18n-key={"common.category." + work.data.category}>{t("common.category." + work.data.category)}</span>
+                <span class="meta-pill" data-i18n-key={"common.category." + work.data.category}>{t("common.category." + work.data.category)}</span>
                 <h3 data-i18n-key={key + ".title"}>{t(key + ".title")}</h3>
                 <p data-i18n-key={key + ".summary"}>{t(key + ".summary")}</p>
                 <a class="btn btn-primary" href={"/works/" + work.data.slug + "/"}>
-                  <span data-i18n-key="home.featured.view">{t("home.featured.view")}</span> →
+                  <span data-i18n-key="home.featured.view">{t("home.featured.view")}</span> <span class="arrow" aria-hidden="true">→</span>
                 </a>
               </div>
             </article>
@@ -64,10 +67,10 @@ const heroHeadlineParts = richParts("home.hero.title");
       </section>
     </div>
   )}
-  <div style="border-top:1px solid var(--line)">
+  <div class="band">
     <section class="shell section about-grid" aria-label={t("a11y.aboutContact")} data-i18n-aria-label="a11y.aboutContact">
       <div class="about-card">
-        <span class="overline" data-i18n-key="home.about.eyebrow">{t("home.about.eyebrow")}</span>
+        <span class="index-tag" aria-hidden="true">02</span>
         <h3 data-i18n-key="home.about.title">{t("home.about.title")}</h3>
         <div class="prose">
           <p data-i18n-key="home.about.p1">{t("home.about.p1")}</p>
@@ -75,11 +78,11 @@ const heroHeadlineParts = richParts("home.hero.title");
           <p data-i18n-key="home.about.p3">{t("home.about.p3")}</p>
         </div>
       </div>
-      <div class="about-card">
-        <span class="overline" data-i18n-key="home.contact.eyebrow">{t("home.contact.eyebrow")}</span>
+      <div class="about-card about-contact">
+        <span class="index-tag" aria-hidden="true">03</span>
         <h3 data-i18n-key="home.contact.title">{t("home.contact.title")}</h3>
         <p data-i18n-key="home.contact.body">{t("home.contact.body")}</p>
-        <a class="text-link" href={"mailto:" + contact.data.email}>{contact.data.email} ↗</a>
+        <a class="contact-mail" href={"mailto:" + contact.data.email}><span>{contact.data.email}</span> <span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </section>
   </div>

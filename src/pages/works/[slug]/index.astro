@@ -15,24 +15,27 @@ const base = "work." + work.data.slug;
 const categoryKey = "common.category." + work.data.category;
 const primary = work.data.links.primary;
 const secondary = work.data.links.secondary;
+const galleryOrientation = work.data.category === "game" ? "portrait" : "landscape";
 ---
 <SiteLayout titleKey={base + ".title"} descriptionKey={base + ".summary"} ogImage={media.cover ?? undefined}>
   <div class="shell">
-    <a class="detail-back" href="/works/">← <span data-i18n-key="detail.back">{t("detail.back")}</span></a>
+    <a class="detail-back" href="/works/"><span class="arrow-back" aria-hidden="true">←</span> <span data-i18n-key="detail.back">{t("detail.back")}</span></a>
     <div class="detail-head">
       <div>
-        <span class="overline"><span data-i18n-key={categoryKey}>{t(categoryKey)}</span> / <span data-i18n-key="detail.published">{t("detail.published")}</span></span>
+        <div class="detail-kicker">
+          <span class="meta-pill" data-i18n-key={categoryKey}>{t(categoryKey)}</span>
+          <span class="detail-platform" data-i18n-key={base + ".platforms"}>{t(base + ".platforms")}</span>
+        </div>
         <h1 data-i18n-key={base + ".title"}>{t(base + ".title")}</h1>
         <p class="intro" data-i18n-key={base + ".summary"}>{t(base + ".summary")}</p>
       </div>
       <div class="detail-cta"><a class="btn btn-primary" href={primary.url} target="_blank" rel="noopener noreferrer">
-        {primary.label_key ? <span data-i18n-key={primary.label_key}>{t(primary.label_key)}</span> : primary.label} ↗
+        {primary.label_key ? <span data-i18n-key={primary.label_key}>{t(primary.label_key)}</span> : primary.label} <span class="arrow" aria-hidden="true">↗</span>
       </a></div>
     </div>
     <MediaBlock src={media.cover} altKey={base + ".cover.alt"} className="detail-visual" eager />
     <section class="detail-body" aria-label={t("a11y.projectDetails")} data-i18n-aria-label="a11y.projectDetails">
       <article>
-        <span class="overline" data-i18n-key="detail.overview.eyebrow">{t("detail.overview.eyebrow")}</span>
         <h2 data-i18n-key="detail.overview.title">{t("detail.overview.title")}</h2>
         <div class="prose">
           <p data-i18n-key={base + ".p1"}>{t(base + ".p1")}</p>
@@ -40,7 +43,7 @@ const secondary = work.data.links.secondary;
         </div>
       </article>
       <aside aria-label={t("a11y.projectInfo")} data-i18n-aria-label="a11y.projectInfo">
-        <span class="overline" data-i18n-key="detail.facts.eyebrow">{t("detail.facts.eyebrow")}</span>
+        <span class="index-tag" data-i18n-key="detail.facts.eyebrow">{t("detail.facts.eyebrow")}</span>
         <dl class="fact-list">
           <div><dt data-i18n-key="detail.facts.category">{t("detail.facts.category")}</dt><dd data-i18n-key={categoryKey}>{t(categoryKey)}</dd></div>
           <div><dt data-i18n-key="detail.facts.attribution">{t("detail.facts.attribution")}</dt><dd data-i18n-key={base + ".attribution"}>{t(base + ".attribution")}</dd></div>
@@ -48,12 +51,12 @@ const secondary = work.data.links.secondary;
         </dl>
         {secondary.length > 0 && (
           <>
-            <p class="overline" style="margin-top:29px" data-i18n-key="detail.related">{t("detail.related")}</p>
+            <p class="index-tag" style="margin-top:28px" data-i18n-key="detail.related">{t("detail.related")}</p>
             <div class="related-links">
               {secondary.map((link) => (
                 <a class="btn btn-outline" href={link.url} target={link.url.startsWith("https:") ? "_blank" : undefined}
                    rel={link.url.startsWith("https:") ? "noopener noreferrer" : undefined}>
-                  <span data-i18n-key={link.label_key}>{t(link.label_key)}</span> ↗
+                  <span data-i18n-key={link.label_key}>{t(link.label_key)}</span> <span class="arrow" aria-hidden="true">↗</span>
                 </a>
               ))}
             </div>
@@ -63,13 +66,40 @@ const secondary = work.data.links.secondary;
     </section>
     {media.screenshots.length > 0 && (
       <section class="detail-gallery" aria-label={t("a11y.screenshots")} data-i18n-aria-label="a11y.screenshots">
-        <span class="overline" data-i18n-key="detail.gallery.eyebrow">{t("detail.gallery.eyebrow")}</span>
-        <h2 data-i18n-key="detail.gallery.title">{t("detail.gallery.title")}</h2>
-        <div class="gallery-grid">
-          {media.screenshots.map((src, index) => <img src={src} alt={t(base + ".screenshot.alt").replace("{number}", String(index + 1))}
-             data-i18n-alt={base + ".screenshot.alt"} data-i18n-number={index + 1} loading="lazy" decoding="async" />)}
+        <div class="gallery-head">
+          <h2 data-i18n-key="detail.gallery.title">{t("detail.gallery.title")}</h2>
         </div>
+        <div class="gallery-grid" data-orientation={galleryOrientation}>
+          {media.screenshots.map((src, index) => (
+            <button type="button" class="gallery-item" data-lightbox-src={src}>
+              <img src={src} alt={t(base + ".screenshot.alt").replace("{number}", String(index + 1))}
+                 data-i18n-alt={base + ".screenshot.alt"} data-i18n-number={index + 1} loading="lazy" decoding="async" />
+            </button>
+          ))}
+        </div>
+        <dialog class="lightbox" id="gallery-lightbox">
+          <button type="button" class="lightbox-close" aria-label="Close">×</button>
+          <img id="lightbox-image" src="" alt="" />
+        </dialog>
       </section>
     )}
   </div>
+  <script>
+    const dialog = document.getElementById("gallery-lightbox");
+    const preview = document.getElementById("lightbox-image");
+    if (dialog instanceof HTMLDialogElement && preview instanceof HTMLImageElement) {
+      for (const trigger of document.querySelectorAll("[data-lightbox-src]")) {
+        trigger.addEventListener("click", () => {
+          const img = trigger.querySelector("img");
+          preview.src = trigger.getAttribute("data-lightbox-src") || "";
+          preview.alt = img?.alt || "";
+          dialog.showModal();
+        });
+      }
+      dialog.querySelector(".lightbox-close")?.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    }
+  </script>
 </SiteLayout>

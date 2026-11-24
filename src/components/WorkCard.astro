@@ -15,9 +15,12 @@ const categoryKey = "common.category." + data.category;
     <MediaBlock src={media.cover} altKey={base + ".cover.alt"} hintKey="common.image.pending" />
   </a>
   <div class="card-body">
-    <span class="card-category" data-i18n-key={categoryKey}>{t(categoryKey)}</span>
+    <div class="card-meta">
+      <span class="meta-pill" data-i18n-key={categoryKey}>{t(categoryKey)}</span>
+      <span class="card-platform" data-i18n-key={base + ".platforms"}>{t(base + ".platforms")}</span>
+    </div>
     <h2><a href={"/works/" + data.slug + "/"} data-i18n-key={base + ".title"}>{t(base + ".title")}</a></h2>
     <p data-i18n-key={base + ".summary"}>{t(base + ".summary")}</p>
-    <a class="card-link" href={"/works/" + data.slug + "/"}><span data-i18n-key="works.card.view">{t("works.card.view")}</span> →</a>
+    <a class="card-link" href={"/works/" + data.slug + "/"}><span data-i18n-key="works.card.view">{t("works.card.view")}</span> <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </article>
