@@ -5,7 +5,7 @@ These rules apply to all work in this repository. Read this file before editing.
 ## Git and checkpoints
 1. Work on a dedicated `gpt/...` feature branch. Do not write to `main` or publish the site without explicit user approval.
 2. **Create a commit at each meaningful checkpoint**, including completed investigation, layout, implementation, content migration and validation. Commit only coherent, verified changes; report the branch, commit SHA and checks.
-3. **Every commit message must start with a relevant emoji** followed by a conventional, scoped description, for example: `📝 docs(site): audit existing routes`, `✨ feat(site): add works grid`, `🐛 fix(site): restore privacy link`, `✅ test(site): verify static output`.
+3. **Every commit message must start with `<worker emoji><task-category emoji>`** (e.g. `🪐` for Antigravity, followed by a task emoji) and a conventional, scoped description, for example: `🪐📝 docs(site): audit existing routes`, `🪐✨ feat(site): add works grid`, `🪐🐛 fix(site): restore privacy link`, `🪐🖼️ assets(site): update project covers`.
 4. Prefer direct feature-branch commits. **Do not create pull requests by default**; create a PR only when explicitly requested or demonstrably required and approved.
 5. Never force-push, rewrite shared history, or merge into `main` without approval.
 
