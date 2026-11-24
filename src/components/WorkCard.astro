@@ -16,7 +16,12 @@ const categoryKey = "common.category." + data.category;
   </a>
   <div class="card-body">
     <div class="card-meta">
-      <span class="meta-pill" data-i18n-key={categoryKey}>{t(categoryKey)}</span>
+      <div class="card-meta-tags">
+        <span class="meta-pill" data-i18n-key={categoryKey}>{t(categoryKey)}</span>
+        {data.status === "in-development" && (
+          <span class="meta-pill meta-pill-status" data-i18n-key="common.status.in-development">{t("common.status.in-development")}</span>
+        )}
+      </div>
       <span class="card-platform" data-i18n-key={base + ".platforms"}>{t(base + ".platforms")}</span>
     </div>
     <h2><a href={"/works/" + data.slug + "/"} data-i18n-key={base + ".title"}>{t(base + ".title")}</a></h2>

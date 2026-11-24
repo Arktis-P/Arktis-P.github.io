@@ -52,7 +52,7 @@ const works = defineCollection({
     status: z.enum(["available", "in-development", "archived"]),
     platforms: z.array(z.string().min(1)).default([]),
     links: z.object({
-      primary: primaryLink,
+      primary: primaryLink.optional(),
       secondary: z.array(secondaryLink).default([]),
     }),
   }),

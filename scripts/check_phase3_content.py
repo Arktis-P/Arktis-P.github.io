@@ -22,11 +22,13 @@ DIMENSIONS: dict[str, tuple[int, int]] = {
     "works/anvil-bastion/cover.webp": (1280, 720),
     "works/virtualqhdmirror/cover.webp": (1280, 720),
     "works/spriteforge/cover.webp": (1280, 720),
+    "works/project-rv/cover.webp": (1280, 720),
 }
 for number in range(1, 7):
     DIMENSIONS[f"works/anvil-bastion/shot-{number:02}.webp"] = (1080, 1920)
     DIMENSIONS[f"works/virtualqhdmirror/shot-{number:02}.webp"] = (1600, 900)
     DIMENSIONS[f"works/spriteforge/shot-{number:02}.webp"] = (1600, 900)
+    DIMENSIONS[f"works/project-rv/shot-{number:02}.webp"] = (1080, 1920)
 
 
 def image_size(path: Path) -> tuple[int, int] | None:
@@ -79,10 +81,11 @@ def main() -> int:
     if "/privacy.html" not in contact or "https://github.com/Arktis-P" not in contact:
         errors.append("contact.yml is missing existing public routes")
 
-    expected = {
+    expected: dict[str, tuple[str, str | None, str | None]] = {
         "anvil-bastion": ("game", "Google Play", GOOGLE_PLAY),
         "virtualqhdmirror": ("software", "GitHub", GITHUB),
         "spriteforge": ("software", "Website", SPRITEFORGE),
+        "project-rv": ("game", None, None),
     }
     found: set[str] = set()
     for path in sorted(WORKS.glob("*.md")):
@@ -106,7 +109,7 @@ def main() -> int:
         category, label, url = expected[name]
         if value(body, "category") != category:
             errors.append(f"{name} category should be {category}")
-        if f"label: {label}" not in body or f"url: {url}" not in body:
+        if label and url and (f"label: {label}" not in body or f"url: {url}" not in body):
             errors.append(f"{name} primary link incorrect")
         found.add(name)
     if found != set(expected):

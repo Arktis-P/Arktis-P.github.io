@@ -13,6 +13,7 @@ const { work } = Astro.props;
 const media = getWorkMedia(work.data.slug);
 const base = "work." + work.data.slug;
 const categoryKey = "common.category." + work.data.category;
+const statusKey = "common.status." + work.data.status;
 const primary = work.data.links.primary;
 const secondary = work.data.links.secondary;
 const galleryOrientation = work.data.category === "game" ? "portrait" : "landscape";
@@ -24,14 +25,23 @@ const galleryOrientation = work.data.category === "game" ? "portrait" : "landsca
       <div>
         <div class="detail-kicker">
           <span class="meta-pill" data-i18n-key={categoryKey}>{t(categoryKey)}</span>
+          {work.data.status === "in-development" && (
+            <span class="meta-pill meta-pill-status" data-i18n-key={statusKey}>{t(statusKey)}</span>
+          )}
           <span class="detail-platform" data-i18n-key={base + ".platforms"}>{t(base + ".platforms")}</span>
         </div>
         <h1 data-i18n-key={base + ".title"}>{t(base + ".title")}</h1>
         <p class="intro" data-i18n-key={base + ".summary"}>{t(base + ".summary")}</p>
       </div>
-      <div class="detail-cta"><a class="btn btn-primary" href={primary.url} target="_blank" rel="noopener noreferrer">
-        {primary.label_key ? <span data-i18n-key={primary.label_key}>{t(primary.label_key)}</span> : primary.label} <span class="arrow" aria-hidden="true">↗</span>
-      </a></div>
+      <div class="detail-cta">
+        {primary ? (
+          <a class="btn btn-primary" href={primary.url} target="_blank" rel="noopener noreferrer">
+            {primary.label_key ? <span data-i18n-key={primary.label_key}>{t(primary.label_key)}</span> : primary.label} <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        ) : (
+          <span class="status-badge" data-i18n-key={statusKey}>{t(statusKey)}</span>
+        )}
+      </div>
     </div>
     <MediaBlock src={media.cover} altKey={base + ".cover.alt"} className="detail-visual" eager />
     <section class="detail-body" aria-label={t("a11y.projectDetails")} data-i18n-aria-label="a11y.projectDetails">
@@ -46,6 +56,7 @@ const galleryOrientation = work.data.category === "game" ? "portrait" : "landsca
         <span class="index-tag" data-i18n-key="detail.facts.eyebrow">{t("detail.facts.eyebrow")}</span>
         <dl class="fact-list">
           <div><dt data-i18n-key="detail.facts.category">{t("detail.facts.category")}</dt><dd data-i18n-key={categoryKey}>{t(categoryKey)}</dd></div>
+          <div><dt data-i18n-key="detail.facts.status">{t("detail.facts.status")}</dt><dd data-i18n-key={statusKey}>{t(statusKey)}</dd></div>
           <div><dt data-i18n-key="detail.facts.attribution">{t("detail.facts.attribution")}</dt><dd data-i18n-key={base + ".attribution"}>{t(base + ".attribution")}</dd></div>
           <div><dt data-i18n-key="detail.facts.platform">{t("detail.facts.platform")}</dt><dd data-i18n-key={base + ".platforms"}>{t(base + ".platforms")}</dd></div>
         </dl>

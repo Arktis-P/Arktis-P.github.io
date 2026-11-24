@@ -15,6 +15,7 @@ EXPECTED_PAGES = [
     "works/anvil-bastion/index.html",
     "works/virtualqhdmirror/index.html",
     "works/spriteforge/index.html",
+    "works/project-rv/index.html",
     "404.html",
     "privacy.html",
     "app-ads.txt",
@@ -68,10 +69,10 @@ def main() -> int:
     config = (ROOT / "astro.config.mjs").read_text(encoding="utf-8")
     css = (ROOT / "src/styles/global.css").read_text(encoding="utf-8")
     works = list((ROOT / "content/works").glob("*.md"))
-    approved = {"anvil-bastion.md", "virtualqhdmirror.md", "spriteforge.md"}
+    approved = {"anvil-bastion.md", "virtualqhdmirror.md", "spriteforge.md", "project-rv.md"}
 
     check({p.name for p in works if "draft: false" in p.read_text(encoding="utf-8")} == approved,
-          "only the three approved works are public")
+          "only the approved works are public")
     check('getCollection("works", ({ data }) => !data.draft)' in listing
           and 'getCollection("works", ({ data }) => !data.draft)' in detail,
           "draft entries excluded from lists and detail routes")
@@ -133,6 +134,7 @@ def main() -> int:
                 check("Anvil Bastion" in rendered["works/index.html"]
                       and "VirtualQHDMirror" in rendered["works/index.html"]
                       and "SpriteForge" in rendered["works/index.html"]
+                      and "Project RV" in rendered["works/index.html"]
                       and "SpartaPixelVerse" not in rendered["works/index.html"],
                       "built Works list matches approved scope")
                 check(MAIL in rendered["index.html"] and MAIL in rendered["privacy.html"],

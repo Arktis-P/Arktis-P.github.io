@@ -256,6 +256,12 @@ h2 { font-size: clamp(1.8rem, 3.2vw, 2.65rem); }
 .card:hover .card-media img { transform: scale(1.03); }
 .card-body { display: flex; flex-direction: column; flex: 1; padding: 22px; }
 .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.card-meta-tags { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.meta-pill-status {
+  color: #f4b860;
+  border-color: rgba(244, 184, 96, .35);
+  background: rgba(244, 184, 96, .08);
+}
 .card-platform { font-family: var(--font-mono); font-size: .7rem; color: var(--muted); }
 .card h2 { font-size: 1.42rem; margin: 12px 0 8px; }
 .card h2 a { transition: color .15s ease; }
@@ -289,6 +295,15 @@ h2 { font-size: clamp(1.8rem, 3.2vw, 2.65rem); }
 .detail-head .intro { color: var(--muted); max-width: 620px; margin: 0; font-size: 1.02rem; }
 .detail-cta { flex: none; }
 .detail-cta .btn { min-width: 156px; }
+.status-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 20px;
+  font-family: var(--font-mono); font-size: .78rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: #f4b860;
+  background: rgba(244, 184, 96, .08);
+  border: 1px solid rgba(244, 184, 96, .35);
+}
 .detail-visual { aspect-ratio: 16 / 9; min-height: 0; }
 
 .detail-body {

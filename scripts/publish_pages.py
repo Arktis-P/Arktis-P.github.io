@@ -28,6 +28,7 @@ PUBLISH_FILES = (
     "works/anvil-bastion/index.html",
     "works/virtualqhdmirror/index.html",
     "works/spriteforge/index.html",
+    "works/project-rv/index.html",
     "privacy.html",
     "app-ads.txt",
     "404.html",
@@ -108,7 +109,7 @@ def validate_output(repo: Path) -> tuple[Path, list[str]]:
         html = (dist / rel).read_text(encoding="utf-8")
         require(link in html, f"Built {rel} missing expected outbound link: {link}")
     works = (dist / "works/index.html").read_text(encoding="utf-8")
-    for name in ("Anvil Bastion", "VirtualQHDMirror", "SpriteForge"):
+    for name in ("Anvil Bastion", "VirtualQHDMirror", "SpriteForge", "Project RV"):
         require(name in works, f"Missing approved work in Works listing: {name}")
     files: list[str] = []
     for file in sorted(dist.rglob("*")):
