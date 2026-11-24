@@ -172,7 +172,8 @@ def deploy(repo: Path, dist: Path, files: list[str], source_head: str, old_main:
             require(git(worktree, "rev-parse", "HEAD", capture=True) == old_main,
                     "Remote main changed before staging")
             # Remove ONLY files listed as deployed in a previous release.
-            for p in safe_manifest_paths(worktree):
+            previous_manifest = safe_manifest_paths(worktree)
+            for p in previous_manifest:
                 if p.is_symlink():
                     raise PublishError("Symlink in release manifest: " + str(p))
                 if p.is_file():
@@ -199,7 +200,7 @@ def deploy(repo: Path, dist: Path, files: list[str], source_head: str, old_main:
             changed = set(staged.splitlines())
             allowed = set(files) | {".nojekyll", MANIFEST_FILE, RELEASE_FILE}
             allowed |= {p.relative_to(worktree).as_posix()
-                        for p in safe_manifest_paths(worktree)}
+                        for p in previous_manifest}
             require(changed and changed.issubset(allowed),
                     "Unexpected publish diff; refused to push: " + staged)
             print("\nFiles staged for deployment:\n" + staged)
