@@ -16,7 +16,14 @@ const safeJson = JSON.stringify(translations).replace(/</g, String.fromCharCode(
   try { dict = JSON.parse(source.textContent || "{}"); } catch { return; }
   const STORAGE = "burning-arktis-locale";
   let locale = "en";
-  try { if (localStorage.getItem(STORAGE) === "ko") locale = "ko"; } catch {}
+  try {
+    const saved = localStorage.getItem(STORAGE);
+    if (saved === "en" || saved === "ko") {
+      locale = saved;
+    } else if ((navigator.language || "").toLowerCase().startsWith("ko")) {
+      locale = "ko";
+    }
+  } catch {}
   function tr(key) {
     return dict[key]?.[locale] || dict[key]?.en || key;
   }
@@ -82,9 +89,10 @@ const safeJson = JSON.stringify(translations).replace(/</g, String.fromCharCode(
     document.querySelectorAll("[data-locale]").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.getAttribute("data-locale") === locale));
     });
+    document.documentElement.removeAttribute("data-i18n-pending");
     document.dispatchEvent(new CustomEvent("site:language-changed", { detail: { locale } }));
   }
-  document.addEventListener("DOMContentLoaded", () => {
+  function bindSwitcher() {
     document.querySelectorAll("[data-locale]").forEach((button) => {
       button.addEventListener("click", () => {
         const next = button.getAttribute("data-locale");
@@ -95,7 +103,12 @@ const safeJson = JSON.stringify(translations).replace(/</g, String.fromCharCode(
       });
     });
     applyTranslations();
-  });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bindSwitcher);
+  } else {
+    bindSwitcher();
+  }
   document.addEventListener("site:refresh-translations", applyTranslations);
 })();
 </script>

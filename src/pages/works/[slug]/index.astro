@@ -16,7 +16,7 @@ const categoryKey = "common.category." + work.data.category;
 const primary = work.data.links.primary;
 const secondary = work.data.links.secondary;
 ---
-<SiteLayout titleKey={base + ".title"} descriptionKey={base + ".summary"}>
+<SiteLayout titleKey={base + ".title"} descriptionKey={base + ".summary"} ogImage={media.cover ?? undefined}>
   <div class="shell">
     <a class="detail-back" href="/works/">← <span data-i18n-key="detail.back">{t("detail.back")}</span></a>
     <div class="detail-head">

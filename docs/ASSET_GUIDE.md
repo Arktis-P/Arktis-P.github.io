@@ -140,7 +140,7 @@ py scripts/check_phase4_source.py --dist
 
 ## 7. 향후 작품 추가 시
 
-새 작품을 공개하기로 승인한 뒤 `content/works/<작품-slug>.md`를 만들고, 동일한 slug로 `public/images/works/<작품-slug>/` 폴더를 구성합니다. slug는 소문자 영문·숫자·하이픈 형식이어야 합니다. 다만 **현재 정확한 파일 규격을 검사하는 스크립트는 Anvil Bastion과 VirtualQHDMirror만 등록**되어 있으므로, 신규 작품을 추가할 때는 이미지 검사 규격도 확장해야 합니다.
+새 작품을 공개하기로 승인한 뒤 `content/works/<작품-slug>.md`를 만들고, 동일한 slug로 `public/images/works/<작품-slug>/` 폴더를 구성합니다. slug는 소문자 영문·숫자·하이픈 형식이어야 합니다. 다만 **현재 정확한 파일 규격을 검사하는 스크립트는 Anvil Bastion, VirtualQHDMirror, SpriteForge 3종만 등록**되어 있으므로, 신규 프로젝트를 추가할 때는 이미지 검사 규격도 확장해야 합니다.
 
 ## 8. 최종 확인 목록
 
