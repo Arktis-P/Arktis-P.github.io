@@ -1,7 +1,7 @@
 {
   "source_branch": "gpt/site-redesign-implementation",
-  "source_commit": "4fcac5e37f20c8c2e211c8147f5b07fca6ef43cf",
-  "published_at_utc": "2026-11-24T10:33:59+00:00",
+  "source_commit": "f0f5da73999d3f4d9549da167c1280fa77cbbfb9",
+  "published_at_utc": "2026-11-24T11:24:10+00:00",
   "renderer": "Astro npm run build (locally verified)",
   "asset_policy": "images/original/ excluded from live site"
 }
